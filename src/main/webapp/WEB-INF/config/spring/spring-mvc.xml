@@ -62,4 +62,8 @@
     <!-- 静态资源 -->
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <!-- 静态资源end-->
+
+    <!-- 全局异常处理器 -->
+    <!-- 只要你实现了HandlerExceptionResolver接口，这个类就是一个全局异常处理器 -->
+    <bean class="com.jnshu.exception.UserExceptionResolver"/>
 </beans>
