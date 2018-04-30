@@ -60,7 +60,7 @@ public class UserController {
     //将数据回显到编辑页面
     @RequestMapping("/userEdit.action")
     public String userEdit(Model model, Integer id) throws Exception {
-        //查询商品信息
+        //查询用户信息
         UserCustom userCustom = userService.findUserById(id);
         //判断是否查询到数据,查询不到提示错误
         if(userCustom == null){
