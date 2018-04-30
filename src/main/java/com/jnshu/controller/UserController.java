@@ -20,12 +20,12 @@ import java.util.List;
 
 /* 普通风格 */
 /*响应规则
-  功能      jsp文件          响应               返回值
-查询用户    userList      /userList.action  按条件查询数据,条件为空时返回所有用户数据
-添加用户    userList      /rest/list        成功: redirect:userList.action,数据效验失败 forward:userList.action,进行数据回显
-删除用户    userList      /userDelete.actionredirect:userList.action
-编辑用户    userEdit      /userEdit.action  返回编辑用户信息,回显到userEdit
-更新用户    userEdit      /userEditSubmit.actio  成功: redirect:userList.action 数据效验失败 forward:userEdit.action,进行数据回显*/
+  功能      jsp文件          响应                         返回值
+查询用户    userList      /userList.action      按条件查询数据,条件为空时返回所有用户数据
+添加用户    userList      /rest/list            成功: redirect:userList.action,数据效验失败 forward:userList.action,进行数据回显
+删除用户    userList      /userDelete.action    redirect:userList.action
+编辑用户    userEdit      /userEdit.action      返回编辑用户信息,回显到userEdit
+更新用户    userEdit      /userEditSubmit.actio 成功: redirect:userList.action 数据效验失败 forward:userEdit.action,进行数据回显*/
 
 
 @Controller
