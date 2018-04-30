@@ -1,5 +1,6 @@
 package com.jnshu.controller;
 
+import com.jnshu.exception.UserException;
 import com.jnshu.model.User;
 import com.jnshu.model.UserCustom;
 import com.jnshu.model.UserQV;
@@ -61,7 +62,11 @@ public class UserController {
     public String userEdit(Model model, Integer id) throws Exception {
         //查询商品信息
         UserCustom userCustom = userService.findUserById(id);
-
+        //判断是否查询到数据,查询不到提示错误
+        if(userCustom == null){
+            //抛出异常信息
+            throw new UserException("修改的用户id不存在!");
+        }
         logger.debug("userCustom.toString(): " + userCustom.toString());
 
         model.addAttribute("userCustom", userCustom);
