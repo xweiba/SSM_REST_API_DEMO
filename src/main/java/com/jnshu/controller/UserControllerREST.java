@@ -143,8 +143,8 @@ public class UserControllerREST {
 
 
 
-    /* api 版本 浏览器地址栏直接请求的都是GET方式 */
 /*
+api 版本 浏览器地址栏直接请求的都是GET方式
 api响应规则:
 json请求
    功能           返回类型(json格式)      url             动作
