@@ -134,7 +134,6 @@ public class UserControllerREST {
     @RequestMapping(value = "/json")
     public String getJson(Model model) throws Exception {
         List<UserCustom> userCustomList = userService.findUserMore(null);
-        ArrayList list = new ArrayList();
         model.addAttribute("userCustomList", userCustomList);
         return "/rest/jsonTaglib";
     }
