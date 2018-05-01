@@ -143,8 +143,7 @@ public class UserControllerREST {
 
 
 
-/*
-api 版本 浏览器地址栏直接请求的都是GET方式
+/*api 版本 浏览器地址栏直接请求的都是GET方式
 api响应规则:
 json请求
    功能           返回类型(json格式)      url             动作
@@ -152,16 +151,15 @@ json请求
 模糊搜索           <List>UserCustom    /api/search/     method=POST
 获取指定用户       UserCustom          /api/{id}        method=GET
 获取所有用户       <List>UserCustom    /api/list        method=GET
-删除指定用户       String              /api/delelt/{id} method=DELTET
-插入用户          String              /api/insert      method=PUT
-更新用户          String              /api/update{id}  method=POST
+删除指定用户       String              /api/{id}        method=DELTET
+插入用户          String              /api/            method=PUT
+更新用户          String              /api/{id}        method=POST
 
 key/value 请求
   功能           返回类型(json格式)      url                    动作
 模糊搜索          List<UserCustom>  /api/search/key         method=POST
-插入用户          String            /api/insert/key         method=PUT
-更新用户          String            /api/update/key/{id}    method=POST
-*/
+插入用户          String            /api/key                method=PUT
+更新用户          String            /api/key/{id}           method=POST*/
 
 
     //测试返回UserQv格式的json 查看结构
@@ -207,7 +205,7 @@ key/value 请求
     }
 
     //删除, 返回必须json格式 浏览器地址栏测试改为GET请求
-    @RequestMapping(value = "/api/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public boolean testDELETE(@PathVariable("id") int id) throws Exception {
         logger.info("DELETE 删除执行中, id为:" + id);
@@ -232,7 +230,7 @@ key/value 请求
 
     //插入数据 返回提示信息
     /* produces = "application/json; charset=utf-8" 解决json返回string乱码*/
-    @RequestMapping(value = "/api/insert", method = RequestMethod.PUT, produces = "application/text; charset=utf-8")
+    @RequestMapping(value = "/api/", method = RequestMethod.PUT, produces = "application/text; charset=utf-8")
     @ResponseBody()
     public String insertJson(@RequestBody @Validated(value = ValidationInsert.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
@@ -244,7 +242,7 @@ key/value 请求
     }
 
     //插入数据 key/value
-    @RequestMapping(value = "/api/insert/key", method = RequestMethod.PUT, produces = "application/text; charset=utf-8")
+    @RequestMapping(value = "/api/key", method = RequestMethod.PUT, produces = "application/text; charset=utf-8")
     @ResponseBody
     public String insertKey(@Validated(value = ValidationInsert.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
@@ -256,7 +254,7 @@ key/value 请求
     }
 
     //更新数据 json
-    @RequestMapping(value = "/api/update/{id}", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
+    @RequestMapping(value = "/api/{id}", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
     @ResponseBody
     public String updaJson(@PathVariable("id") int id, @RequestBody @Validated(value = ValidationUpdate.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
@@ -266,7 +264,7 @@ key/value 请求
     }
 
     //更新数据 key/value
-    @RequestMapping(value = "/api/update/key/{id}", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
+    @RequestMapping(value = "/api/key/{id}", method = RequestMethod.POST, produces = "application/text; charset=utf-8")
     @ResponseBody
     public String updateKey(@PathVariable("id") int id, @Validated(value = ValidationUpdate.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
