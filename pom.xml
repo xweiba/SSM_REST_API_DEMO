@@ -69,14 +69,15 @@
                 </includes>
                 <filtering>true</filtering>
             </resource>
-            <resource>
+            <!--我的配置文件都在webapp中 这个不用打包了 -->
+            <!--<resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.xml</include>
                     <include>*.properties</include>
                 </includes>
                 <filtering>true</filtering>
-            </resource>
+            </resource>-->
         </resources>
     </build>
 
