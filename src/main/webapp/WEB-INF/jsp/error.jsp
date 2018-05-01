@@ -16,7 +16,7 @@
 <h1 style="text-align:center" >该页面将在<span id= "time" style="color: red"> 5 </span>秒后自动跳转</h1>
 
 <script language="javascript">
-    var times=6;
+    var times=5;
     clock();
     function clock()
     {
