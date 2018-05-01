@@ -15,7 +15,7 @@
             url:'/rest/api/',
             contentType:'application/json;charset=utf-8',
             // dataType:'json',
-            //数据格式是json串,商品信息
+            //数据格式是json串,用户信息
             data:'{"username":"王五","qq":"1756513254","profession":"UI","join_date":1523883709,"school":"武汉大学","online_id":"3879","daily_url":"www.google.com","declaration":null,"counselor":"加油","create_time":1523883709,"update_time":1523883709}',
             success:function(data){//返回json结果
                     alert("json格式创建请求已发送执行结果为:\n" + data);
@@ -29,7 +29,7 @@
             url:'/rest/api/',
             contentType:'application/json;charset=utf-8',
             // dataType:'json',
-            //数据格式是json串,商品信息
+            //数据格式是json串,用户信息
             data:'{"username":"王五王五王五王五王五王五王五王五王五王五王五王五王五王五王五王五","qq":"1756513254","profession":"js","school":"武汉大学","online_id":"3879","daily_url":"www.google.com","declaration":null,"counselor":"加油"}',
             success:function(data){//返回json结果
                 alert("json格式创建请求已发送执行结果为:\n" + data);
