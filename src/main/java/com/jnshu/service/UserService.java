@@ -1,5 +1,6 @@
 package com.jnshu.service;
 
+import com.jnshu.model.Auth;
 import com.jnshu.model.User;
 import com.jnshu.model.UserCustom;
 import com.jnshu.model.UserQV;
@@ -21,4 +22,7 @@ public interface UserService {
 
     /* 返回影响行数 0即代表false true 非 0 */
     boolean updateUser(UserCustom userCustom, Integer id) throws Exception;
+
+    /* 返回查询结果 */
+    boolean findAuth(Auth auth) throws Exception;
 }

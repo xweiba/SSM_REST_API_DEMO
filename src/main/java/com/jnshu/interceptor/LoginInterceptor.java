@@ -39,7 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             //身份存在 放行
             return true;
         }
-
+        String test = "密码错误";
         //执行到这里标识用户身份需要认证,跳转到登陆界面
         //跳转网址需要绝对路径,将当前请求重新映射到/WEB-INF/jsp/login.jsp,
         // WEB-INF/jsp/login.jsp访问的是原地址+WEB-INF/jsp/login.jsp

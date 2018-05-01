@@ -1,6 +1,8 @@
 package com.jnshu.service.impl;
 
+import com.jnshu.mapper.AuthDao;
 import com.jnshu.mapper.UserDao;
+import com.jnshu.model.Auth;
 import com.jnshu.model.User;
 import com.jnshu.model.UserCustom;
 import com.jnshu.model.UserQV;
@@ -14,6 +16,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
+    @Autowired
+    AuthDao authDao;
 
     @Override
     public List<UserCustom> findUserMore(UserQV userQV) throws Exception {
@@ -42,5 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteUser(Integer i) throws Exception {
         return userDao.deleteUser(i);
+    }
+
+    @Override
+    public boolean findAuth(Auth auth) throws Exception{
+        return authDao.findAuth(auth);
     }
 }
