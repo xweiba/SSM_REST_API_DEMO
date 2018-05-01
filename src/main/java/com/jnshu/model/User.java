@@ -36,7 +36,7 @@ public class User {
     @Size(min = 1, max = 10, message = "{user.name.length.error}", groups = {ValidationInsert.class, ValidationUpdate.class})
     private String username;
     //qq
-    private String qq;
+    private Integer qq;
     //修真类型
     @NotBlank(groups = ValidationInsert.class, message = "修真类型不能为空")
     @Pattern(regexp = "^UI|JAVA|WEB|$", message = "{user.profession.include}", groups = {ValidationInsert.class, ValidationUpdate.class})
@@ -48,7 +48,7 @@ public class User {
     private String school;
     //线上id
     @Min(value = 1, message = "线上id为大于0的数字", groups = {ValidationInsert.class, ValidationUpdate.class})
-    private String online_id;
+    private Integer online_id;
     //日报连接
     private String daily_url;
     //立愿
@@ -96,11 +96,11 @@ public class User {
         this.username = username;
     }
 
-    public String getQq() {
+    public Integer getQq() {
         return qq;
     }
 
-    public void setQq(String qq) {
+    public void setQq(Integer qq) {
         this.qq = qq;
     }
 
@@ -128,11 +128,11 @@ public class User {
         this.school = school;
     }
 
-    public String getOnline_id() {
+    public Integer getOnline_id() {
         return online_id;
     }
 
-    public void setOnline_id(String online_id) {
+    public void setOnline_id(Integer online_id) {
         this.online_id = online_id;
     }
 
