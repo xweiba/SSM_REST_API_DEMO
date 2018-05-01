@@ -21,7 +21,7 @@ public class HandlerInterceptor2 implements HandlerInterceptor{
 
         //return false表示拦截，不向下执行
         //return true表示放行
-        return false;
+        return true;
     }
 
     //进入Handler方法之后，返回modelAndView之前执行

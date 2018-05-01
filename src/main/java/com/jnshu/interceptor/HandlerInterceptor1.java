@@ -8,6 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/*
+* 测试结果:
+*
+* 拦截器1放行，拦截器2 preHandle才会执行。
+* 拦截器2 preHandle不放行，拦截器2 postHandle和afterCompletion不会执行。
+* 只要有一个拦截器不放行，postHandle不会执行。
+*
+* */
+
 //测试拦截器
 public class HandlerInterceptor1 implements HandlerInterceptor{
     //日志
@@ -22,7 +31,7 @@ public class HandlerInterceptor1 implements HandlerInterceptor{
 
         //return false表示拦截，不向下执行
         //return true表示放行
-        return false;
+        return true;
     }
 
     //进入Handler方法之后，返回modelAndView之前执行
