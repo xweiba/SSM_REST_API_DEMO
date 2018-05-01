@@ -33,6 +33,20 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8080</port>  <!-- 项目的端口-->
+                    <path>/taskTwo</path> <!-- web项目的项目名称-->
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <url>http://localhost:8080/manager/text</url> <!-- 对应的 tomcat manager的接口-->
+                    <server>tomcat7</server>  <!-- setting.xml 的server id-->
+                    <username>admin</username> <!-- tomcat-user.xml 的 username -->
+                    <password>123456</password> <!-- tomcat-user,xml 的 password -->
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -82,6 +96,9 @@
     </build>
 
     <properties>
+        <!-- tomcat项目名 -->
+        <finalName>SSHMJ-FRANK</finalName>
+
         <!-- 设置编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- spring统一版本号-->
