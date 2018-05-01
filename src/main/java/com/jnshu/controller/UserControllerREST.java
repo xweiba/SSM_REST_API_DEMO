@@ -21,13 +21,13 @@ import java.util.List;
 
 
 /*web响应规则,浏览器地址栏请求为GET
- 功能            jsp          url                  method
-重定向/rest/list userList   /rest/                 GET
-用户列表       userList     /rest/list              GET
-添加用户       userList     /rest/add               PUT
-编辑用户       userEdit     /rest/edit/{id}/        GET
-更新用户       userEdit     /rest/edit/update/{id}  POST
-删除用户       userList     /rest/{id}             DELETE*/
+ 功能                 jsp          url                  method
+重定向/rest/list    userList     /rest/                  GET
+用户列表            userList     /rest/list              GET
+添加用户            userList     /rest/                  PUT
+编辑用户            userEdit     /rest/{id}/             GET
+更新用户            userEdit     /rest/update/{id}       POST
+删除用户            userList     /rest/{id}              DELETE*/
 
 
 @Controller
