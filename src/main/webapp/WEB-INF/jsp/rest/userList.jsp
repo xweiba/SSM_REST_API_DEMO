@@ -169,7 +169,7 @@
                 <td><input name="qq" value="${userEcho.qq}"></td>
                 <td><input name="profession" value="${userEcho.profession}">
                 </td>
-                <td><input name="userCustom.join_date"
+                <td><input name="join_date"
                            value='<date:date value="${userEcho.join_date}"/>'>
                 </td>
                 <td><input name="school" value="${userEcho.school}"></td>
@@ -178,10 +178,10 @@
                 <td><input name="declaration" value="${userEcho.declaration}">
                 </td>
                 <td><input name="counselor" value="${userEcho.counselor}"></td>
-                <td><input name="userCustom.create_time"
+                <td><input name="create_time"
                            value='<date:date value="${userEcho.create_time}"/>'>
                 </td>
-                <td><input name="userCustom.update_time"
+                <td><input name="update_time"
                            value='<date:date value="${userEcho.update_time}"/>'>
                 </td>
                 <td><input type="submit" value="添加"/></td>
