@@ -63,6 +63,10 @@
     }
 </script>
 <body>
+
+<%-- 版本切换 --%>
+<div style="text-align: center"><input type="button" value="切换普通版本" onClick="location.href='${pageContext.request.contextPath }/userList.action'" /></div>
+<hr>
 <%-- 登陆模块 --%>
 当前用户:${username }|
 <c:if test="${username!=null }">

@@ -25,6 +25,9 @@
     #name,#name2{width: 95%;text-align: center;padding-left: 2px}
 </style>
 
+<%-- 版本切换 --%>
+<div style="text-align: center"><input type="button" value="切换REST版本" onClick="location.href='${pageContext.request.contextPath }/rest/list/'" /></div>
+<hr>
 <%-- 登陆模块 --%>
 当前用户:${username }|
 <c:if test="${username!=null }">
