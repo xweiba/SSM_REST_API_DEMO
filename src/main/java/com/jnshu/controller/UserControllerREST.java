@@ -29,17 +29,18 @@ import java.util.List;
 更新用户            userEdit     /rest/update/{id}       POST
 删除用户            userList     /rest/{id}              DELETE*/
 
-
+//注入Controller
 @Controller
+//REST根url
 @RequestMapping("/rest")
 public class UserControllerREST {
 
     //日志对象
     private static Logger logger = LoggerFactory.getLogger(UserControllerREST.class);
 
+    //自动装载Service对象
     @Autowired
     private UserService userService;
-    private UserQV userQVs;
 
     //首页跳转到综合页面,这是访问 /rest/ 的
     @RequestMapping("/")
@@ -48,6 +49,7 @@ public class UserControllerREST {
     }
 
     /*  web 版本 可以只使用api, 跳转使用前端 Sprict */
+    /* WEB-INF/jsp/userList.jsp */
     //综合页面 默认显示所有用户信息
     @RequestMapping(value = "/list")
     public String list(Model model, UserQV userQV) throws Exception {
@@ -86,6 +88,16 @@ public class UserControllerREST {
         return "redirect:/rest/list";
     }
 
+    //删除
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    /* 返回值必须以JSON方式返回*/
+    @ResponseBody
+    public boolean deleteUser(@PathVariable Integer id) throws Exception {
+        return userService.deleteUser(id);
+    }
+
+    /* WEB-INF/jsp/userEdit.jsp */
+
     //编辑页面 这里需要添加两个方法, POST方法接收update失败时转发回来的回显数据
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET,RequestMethod.POST})
     public String update(@PathVariable Integer id, Model model) throws Exception {
@@ -122,13 +134,7 @@ public class UserControllerREST {
         return "redirect:/rest/list";
     }
 
-    //删除
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    /* 返回值必须以JSON方式返回*/
-    @ResponseBody
-    public boolean deleteUser(@PathVariable Integer id) throws Exception {
-        return userService.deleteUser(id);
-    }
+
 
     //jsonTaglib
     @RequestMapping(value = "/json")
