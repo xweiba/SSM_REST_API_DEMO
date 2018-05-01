@@ -61,8 +61,7 @@
                     AND profession LIKE '%${userCustom.profession}%'
                 </if>
                 <if test="userCustom.join_date!='' and userCustom.join_date!=null">
-                    AND join_date >= #{userCustom.join_date} order by join_date
-                    asc
+                    AND join_date >= #{userCustom.join_date}
                 </if>
                 <if test="userCustom.school!='' and userCustom.school!=null">AND
                     school LIKE '%${userCustom.school}%'
@@ -80,8 +79,7 @@
                     AND counselor LIKE '%${userCustom.counselor}%'
                 </if>
                 <if test="userCustom.create_time!='' and userCustom.create_time!=null">
-                    AND create_time >= #{userCustom.create_time} order by
-                    create_time asc
+                    AND create_time >= #{userCustom.create_time}
                 </if>
                 <if test="userCustom.update_time!='' and userCustom.update_time!=null">
                     AND update_time >= #{userCustom.update_time} order by
