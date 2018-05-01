@@ -45,7 +45,7 @@
 <script type="text/javascript">
     /* 根据返回值弹出不同信息 */
     function sendBtn(id) {
-        var url = '${pageContext.request.contextPath }' + '/rest/' + id;
+        var url = '${pageContext.request.contextPath }/rest/' + id;
         /*得到href的值*/
         $.ajax({
             url: url, /*url也可以是json之类的文件等等*/
@@ -77,7 +77,7 @@
     </c:forEach>
 </c:if>
 <%-- 查询模块 --%>
-<form action="${pageContext.request.contextPath}list" method="get">
+<form action="${pageContext.request.contextPath}/rest/list" method="get">
     <fieldset>
         <legend>查询条件</legend>
         <table width="100%"
@@ -226,7 +226,7 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
                     <a href="${pageContext.request.contextPath }/rest/${users.id}">修改</a>
-                    <a onclick="sendBtn(${users.id})">删除</a>
+                    <a href="" onclick="sendBtn(${users.id})">删除</a>
                 </td>
             </tr>
         </c:forEach>
