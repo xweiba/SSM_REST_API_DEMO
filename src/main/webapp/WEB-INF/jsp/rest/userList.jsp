@@ -18,6 +18,8 @@
 </head>
 <%-- 添加一个自定义tags, 将long类型的时间转为固定格式输出 --%>
 <%@ taglib uri="/tags" prefix="date" %>
+
+<%-- 添加样式 --%>
 <style>
     table, table td, table th {
         border: 1px solid;
@@ -41,6 +43,7 @@
 <%-- Sprict--%>
 <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
+    /* 根据返回值弹出不同信息 */
     function sendBtn(id) {
         var url = '/rest/' + id;
         /*得到href的值*/
@@ -60,6 +63,7 @@
     }
 </script>
 <body>
+<%-- 错误信息 --%>
 <c:if test="${allErrors!=null}">
     <c:forEach items="${allErrors}" var="error">
         <font color="red">${error.defaultMessage}</font><br/>
