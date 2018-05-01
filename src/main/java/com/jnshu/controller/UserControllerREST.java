@@ -56,6 +56,7 @@ public class UserControllerREST {
     //综合页面 默认显示所有用户信息, 提供搜索功能
     @RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST})
     public String list(Model model, UserQV userQV) throws Exception {
+        logger.debug(userQV.toString());
         List<UserCustom> userCustomList = userService.findUserMore(userQV);
         //数据回显
         model.addAttribute("findUserCustom", userQV.getUserCustom());
