@@ -7,6 +7,14 @@ public class UserQV {
     //扩展属性
     private UserCustom userCustom;
 
+    @Override
+    public String toString() {
+        return "UserQV{" +
+                "user=" + user +
+                ", userCustom=" + userCustom +
+                '}';
+    }
+
     public User getUser() {
         return user;
     }
