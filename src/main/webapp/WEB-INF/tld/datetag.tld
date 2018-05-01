@@ -2,11 +2,11 @@
 <taglib>
     <tlib-version>1.0</tlib-version>
     <jsp-version>1.2</jsp-version>
-    <!-- 页面调用名 -->
+    <!-- jsp页面调用名 -->
     <short-name>date</short-name>
 
     <tag>
-        <!-- 页面调用名 -->
+        <!-- jsp页面调用名 -->
         <name>date</name>
         <!-- 实现类 -->
         <tag-class>com.jnshu.tools.JspTag</tag-class>
