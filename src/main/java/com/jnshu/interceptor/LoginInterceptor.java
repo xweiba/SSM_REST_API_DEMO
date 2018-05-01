@@ -44,7 +44,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //跳转网址需要绝对路径,将当前请求重新映射到/WEB-INF/jsp/login.jsp,
         // WEB-INF/jsp/login.jsp访问的是原地址+WEB-INF/jsp/login.jsp
         httpServletRequest.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(httpServletRequest, httpServletResponse);
-        logger.info("用户身份需要认证,跳转至登陆页面");
+        logger.info("用户身份需要认证,跳转至登陆页面,执行Handler方法之前执行");
         //return false表示拦截，不向下执行
         //return true表示放行
         return false;
@@ -55,13 +55,13 @@ public class LoginInterceptor implements HandlerInterceptor {
     //传到视图，也可以在这里统一指定视图
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        logger.info("HandlerInterceptor1 postHandle 拦截器执行了");
+        logger.info("LoginInterceptor postHandle 拦截器执行了,进入Handler方法之后，返回modelAndView之前执行");
     }
 
     //执行Handler完成执行此方法
     //应用场景：统一异常处理，统一日志处理
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-        logger.info("HandlerInterceptor1 afterCompletion 拦截器执行了");
+        logger.info("HandlerInterceptor1 afterCompletion 拦截器执行了,Handler运行完成后执行此方法");
     }
 }
