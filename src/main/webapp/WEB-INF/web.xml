@@ -140,14 +140,13 @@ Log4jConfigListener必须要在Spring的Listener之前。 -->
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
-    <!-- jsp自定义tags 时间格式转换 -->
+    <!-- jsp自定义tags, 前端jsp时间格式转换 -->
     <jsp-config>
         <taglib>
             <taglib-uri>/tags</taglib-uri>
             <taglib-location>/WEB-INF/tld/datetag.tld</taglib-location>
         </taglib>
     </jsp-config>
-
 
     <!-- 配置默认页面 -->
     <welcome-file-list>
