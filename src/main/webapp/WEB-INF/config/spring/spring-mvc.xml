@@ -60,8 +60,11 @@
     </bean>
 
     <!-- 静态资源 -->
+    <!-- 当做了spring自定义类型转换时他会将所有的请求都尝试转换,转换该静态资源时无法完成转换会抛出一个debug异常,不影响静态资源的访问.-->
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <!-- 静态资源end-->
+    <!-- 使用默认servlet来处理未注入的handler url-->
+    <!--<mvc:default-servlet-handler />-->
 
     <!-- 全局异常处理器 -->
     <!-- 只要你实现了HandlerExceptionResolver接口，这个类就是一个全局异常处理器 -->
