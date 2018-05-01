@@ -1,5 +1,6 @@
 package com.jnshu.controller;
 
+import com.jnshu.exception.UserException;
 import com.jnshu.model.UserCustom;
 import com.jnshu.model.UserQV;
 import com.jnshu.service.UserService;
@@ -104,6 +105,10 @@ public class UserControllerREST {
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET,RequestMethod.POST})
     public String update(@PathVariable Integer id, Model model) throws Exception {
         UserCustom userCustom = userService.findUserById(id);
+        //异常检测,当访问不存在的用户id时抛出
+        if(userCustom == null){
+            throw new UserException("修改的用户id不存在!");
+        }
         model.addAttribute("userCustom", userCustom);
         return "rest/userEdit";
     }
