@@ -76,7 +76,7 @@
         </filter>
     </appender>
 
-    <!-- 输出指定类日志到指定位置 -->
+    <!-- 指定类appender 输出指定类日志到指定位置 -->
     <appender name="userController" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="encoding" value="UTF-8" />
         <param name="File" value="${webapp.root}/logs/local/UserController-log.log" />
@@ -108,7 +108,6 @@
         <!-- 输出到控制台 -->
         <appender-ref ref="CONSOLE" />
     </category>
-
 
     <!-- 日志的总开关设置 包括日志级别和 appender -->
     <!-- logger的作用： 1.[name属性]:指定你定义Logger对象时候的name -->
