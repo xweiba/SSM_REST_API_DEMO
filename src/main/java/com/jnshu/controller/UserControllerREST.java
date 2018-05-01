@@ -41,7 +41,7 @@ public class UserControllerREST {
     private UserService userService;
     private UserQV userQVs;
 
-    //首页跳转到综合页面
+    //首页跳转到综合页面,这是访问 /rest/ 的
     @RequestMapping("/")
     public String test() {
         return "redirect:/rest/list";
@@ -59,7 +59,7 @@ public class UserControllerREST {
     }
 
     //插入数据
-    @RequestMapping(value = "/add", method = RequestMethod.PUT)
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
     public String addUser(Model model, @Validated(value = ValidationInsert.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
         if (bindingResult.hasErrors()) {
