@@ -49,8 +49,10 @@ public class UserControllerREST {
     }
 
     /*  web 版本 可以只使用api, 跳转使用前端 Sprict */
+
     /* WEB-INF/jsp/userList.jsp */
-    //综合页面 默认显示所有用户信息
+
+    //综合页面 默认显示所有用户信息, 提供搜索功能
     @RequestMapping(value = "/list")
     public String list(Model model, UserQV userQV) throws Exception {
         List<UserCustom> userCustomList = userService.findUserMore(userQV);
@@ -135,17 +137,15 @@ public class UserControllerREST {
     }
 
 
+    /* WEB-INF/jsp/rest/jsonTaglib.jsp */
 
-    //jsonTaglib
+    //jsonTaglib数据显示测试
     @RequestMapping(value = "/json")
     public String getJson(Model model) throws Exception {
         List<UserCustom> userCustomList = userService.findUserMore(null);
         model.addAttribute("userCustomList", userCustomList);
         return "/rest/jsonTaglib";
     }
-
-
-
 
 
 
@@ -167,6 +167,13 @@ key/value 请求
 插入用户          String            /api/key                method=PUT
 更新用户          String            /api/key/{id}           method=POST*/
 
+    //api 插入与更新 js测试页面
+    @RequestMapping(value = "/tset")
+    public ModelAndView success() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("REST");
+        return modelAndView;
+    }
 
     //测试返回UserQv格式的json 查看结构
     @RequestMapping(value = "/api/userQv/{id}", method = RequestMethod.GET)
@@ -277,13 +284,5 @@ key/value 请求
         String Errors = getString(bindingResult);
         if (Errors != null) return Errors;
         return id + "的更新状态: " + userService.updateUser(userCustom, id);
-    }
-
-    //测试页面
-    @RequestMapping(value = "/success")
-    public ModelAndView success() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("REST");
-        return modelAndView;
     }
 }
