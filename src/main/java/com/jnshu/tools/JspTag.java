@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/* 自定义 JSP 标签 */
+/* 自定义 JSP 标签 将long类型时间数据转换为string类型的时间格式数据*/
 public class JspTag extends TagSupport {
     //jsp传过来的是字符串类型的
     private String value;
@@ -32,7 +32,7 @@ public class JspTag extends TagSupport {
                 logger.error("转换失败");
             }
         } else {
-            /* 为空时返回空值 否则jsp会解析出错*/
+            /* 为空时返回空值,不处理 jsp会解析出错*/
             String s = "";
             try {
                 pageContext.getOut().write(s);
