@@ -82,18 +82,17 @@
     </build>
 
     <properties>
+        <!-- 设置编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+        <!-- spring统一版本号-->
         <spring.version>4.2.6.RELEASE</spring.version>
-
         <!--log4j日志包版本号-->
         <slf4j.version>1.7.18</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-
     </properties>
 
     <dependencies>
-        <!-- 添加日志相关jar包 -->
+        <!-- 日志相关jar包 -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -111,6 +110,7 @@
         </dependency>
         <!-- log end -->
 
+        <!-- mysql驱动 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -130,7 +130,7 @@
         </dependency>
         <!--mybatis end-->
 
-        <!-- jstl -->
+        <!-- jstl jsp解析相关 -->
         <!--  HttpServletRequest http请求依赖 -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -162,7 +162,6 @@
             <version>0.4.1</version>
         </dependency>
         <!-- 添加taglibs标签包end -->
-
         <!-- jstl end-->
         <!-- 加载json -->
         <dependency>
@@ -191,6 +190,20 @@
             <version>2.8.0</version>
         </dependency>
         <!-- 加载json end -->
+        <!-- validator 数据验证-->
+        <!--jsr 303-->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+        <!-- hibernate validator-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.0.Final</version>
+        </dependency>
+        <!-- validator 数据验证end-->
 
         <!-- spring start -->
         <!-- spring dbcp连接jar包-->
@@ -260,19 +273,6 @@
             <version>${spring.version}</version>
         </dependency>
         <!-- spring end -->
-        <!-- validator 数据验证-->
-        <!--jsr 303-->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
-        </dependency>
-        <!-- hibernate validator-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.2.0.Final</version>
-        </dependency>
-        <!-- validator 数据验证end-->
+
     </dependencies>
 </project>
