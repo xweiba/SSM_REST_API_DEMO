@@ -54,7 +54,7 @@ public class UserControllerREST {
     /* WEB-INF/jsp/userList.jsp */
 
     //综合页面 默认显示所有用户信息, 提供搜索功能
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST})
     public String list(Model model, UserQV userQV) throws Exception {
         List<UserCustom> userCustomList = userService.findUserMore(userQV);
         //数据回显
@@ -87,8 +87,9 @@ public class UserControllerREST {
             return "forward:/rest/list";
         }
         userService.insertUser(userCustom);
-        model.addAttribute("userCustomList", userCustom);
-        return "redirect:/rest/list";
+        //forward 数据也无法转发 =.= 还是不要了
+        //model.addAttribute("findUserCustom", userCustom);
+        return "redirect:/rest/list/";
     }
 
     //删除
