@@ -24,6 +24,14 @@
     input{width: 95%;text-align: center;padding-left: 2px}
     #name,#name2{width: 95%;text-align: center;padding-left: 2px}
 </style>
+
+<%-- 登陆模块 --%>
+当前用户:${username }|
+<c:if test="${username!=null }">
+    <a href="${pageContext.request.contextPath }/logout.action">退出</a>
+</c:if>
+
+
 <!-- 显示错误信息 有就提示  -->
 <c:if test="${allErrors!=null}">
     <c:forEach items="${allErrors}" var="error">

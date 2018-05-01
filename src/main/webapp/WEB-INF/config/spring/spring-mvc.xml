@@ -73,8 +73,19 @@
     <!-- 拦截器 -->
     <mvc:interceptors>
         <!-- 多个拦截器，顺序执行 -->
+        <!-- 登录认证拦截器 -->
         <mvc:interceptor>
-            <!-- /**表示所有url包括子url路径 -->
+            <!--/** 表示所有url包括子url路径 -->
+            <mvc:mapping path="/**"/>
+            <bean class="com.jnshu.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 拦截器 测试 -->
+    <!--<mvc:interceptors>
+        &lt;!&ndash; 多个拦截器，顺序执行 &ndash;&gt;
+        <mvc:interceptor>
+            &lt;!&ndash; /**表示所有url包括子url路径 &ndash;&gt;
             <mvc:mapping path="/**"/>
             <bean class="com.jnshu.interceptor.HandlerInterceptor1"/>
         </mvc:interceptor>
@@ -82,5 +93,5 @@
             <mvc:mapping path="/**"/>
             <bean class="com.jnshu.interceptor.HandlerInterceptor2"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 </beans>
