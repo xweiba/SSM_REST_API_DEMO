@@ -19,25 +19,40 @@
 <%-- 添加一个自定义tags, 将long类型的时间转为固定格式输出 --%>
 <%@ taglib uri="/tags" prefix="date" %>
 <style>
-    table,table td,table th{border:1px solid;border-collapse:collapse;text-align: center;}
-    input{width: 95%;text-align: center;padding-left: 2px}
-    #name,#name2{width: 95%;text-align: center;padding-left: 2px}
+    table, table td, table th {
+        border: 1px solid;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    input {
+        width: 95%;
+        text-align: center;
+        padding-left: 2px
+    }
+
+    #name, #name2 {
+        width: 95%;
+        text-align: center;
+        padding-left: 2px
+    }
 </style>
 
 <%-- Sprict--%>
 <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
     function sendBtn(id) {
-        var url = '/rest/' + id;/*得到href的值*/
+        var url = '/rest/' + id;
+        /*得到href的值*/
         $.ajax({
-            url:url,/*url也可以是json之类的文件等等*/
-            type:'DELETE',/*DELETE、POST */
-            success:function (result) {
+            url: url, /*url也可以是json之类的文件等等*/
+            type: 'DELETE', /*DELETE、POST */
+            success: function (result) {
                 //判断result结果
-                if(result){
+                if (result) {
                     alert("id: " + id + "删除成功,即将返回列表页")
                     window.location.reload();
-                }else{
+                } else {
                     alert("id: " + id + " 删除失败")
                 }
             }
@@ -54,7 +69,8 @@
 <form action="${pageContext.request.contextPath}list" method="get">
     <fieldset>
         <legend>查询条件</legend>
-        <table width="100%" style="table-layout:fixed;word-break:break-all;background:#f2f2f2">
+        <table width="100%"
+               style="table-layout:fixed;word-break:break-all;background:#f2f2f2">
             <tr id="name">
                 <td>id(>=)</td>
                 <td>用户名称</td>
@@ -71,10 +87,14 @@
                 <td>操作</td>
             </tr>
             <tr>
-                <td><input name="userCustom.id" value="${findUserCustom.id}"/></td>
-                <td><input name="userCustom.username" value="${findUserCustom.username}"></td>
-                <td><input name="userCustom.qq" value="${findUserCustom.qq}"></td>
-                <td><input name="userCustom.profession" value="${findUserCustom.profession}"></td>
+                <td><input name="userCustom.id" value="${findUserCustom.id}"/>
+                </td>
+                <td><input name="userCustom.username"
+                           value="${findUserCustom.username}"></td>
+                <td><input name="userCustom.qq" value="${findUserCustom.qq}">
+                </td>
+                <td><input name="userCustom.profession"
+                           value="${findUserCustom.profession}"></td>
 
                 <%-- findUserCustom.join_date 为0时,不加value, 后端可以加判断,为空时返回空字符串 --%>
                 <%--<c:choose>
@@ -85,14 +105,25 @@
                         <td><input name="userCustom.join_date"></td>
                     </c:otherwise>
                 </c:choose>--%>
-                <td><input name="userCustom.join_date" value='<date:date value="${findUserCustom.join_date}"/>'></td>
-                <td><input name="userCustom.school" value="${findUserCustom.school}"></td>
-                <td><input name="userCustom.online_id" value="${findUserCustom.online_id}"></td>
-                <td><input name="userCustom.daily_url" value="${findUserCustom.daily_url}"></td>
-                <td><input name="userCustom.declaration" value="${findUserCustom.declaration}"></td>
-                <td><input name="userCustom.counselor" value="${findUserCustom.counselor}"></td>
-                <td><input name="userCustom.create_time" value='<date:date value="${findUserCustom.create_time}"/>'></td>
-                <td><input name="userCustom.update_time" value='<date:date value="${findUserCustom.update_time}"/>'></td>
+                <td><input name="userCustom.join_date"
+                           value='<date:date value="${findUserCustom.join_date}"/>'>
+                </td>
+                <td><input name="userCustom.school"
+                           value="${findUserCustom.school}"></td>
+                <td><input name="userCustom.online_id"
+                           value="${findUserCustom.online_id}"></td>
+                <td><input name="userCustom.daily_url"
+                           value="${findUserCustom.daily_url}"></td>
+                <td><input name="userCustom.declaration"
+                           value="${findUserCustom.declaration}"></td>
+                <td><input name="userCustom.counselor"
+                           value="${findUserCustom.counselor}"></td>
+                <td><input name="userCustom.create_time"
+                           value='<date:date value="${findUserCustom.create_time}"/>'>
+                </td>
+                <td><input name="userCustom.update_time"
+                           value='<date:date value="${findUserCustom.update_time}"/>'>
+                </td>
                 <td><input type="submit" value="查询"/></td>
             </tr>
         </table>
@@ -100,12 +131,14 @@
 </form>
 
 <%-- 添加模块 --%>
-<form name="usersFrom" action="${pageContext.request.contextPath}/rest/" method="post">
+<form name="usersFrom" action="${pageContext.request.contextPath}/rest/"
+      method="post">
     <%-- REST PUT 添加动作 --%>
     <input type="hidden" name="_method" value="PUT"/>
     <fieldset>
         <legend>添加用户</legend>
-        <table width="100%" style="table-layout:fixed;word-break:break-all;background:#f2f2f2">
+        <table width="100%"
+               style="table-layout:fixed;word-break:break-all;background:#f2f2f2">
             <tr id="name2">
                 <td>用户名称</td>
                 <td>QQ</td>
@@ -123,15 +156,23 @@
             <tr>
                 <td><input name="username" value="${userEcho.username}"></td>
                 <td><input name="qq" value="${userEcho.qq}"></td>
-                <td><input name="profession" value="${userEcho.profession}"></td>
-                <td><input name="userCustom.join_date" value='<date:date value="${userEcho.join_date}"/>'></td>
+                <td><input name="profession" value="${userEcho.profession}">
+                </td>
+                <td><input name="userCustom.join_date"
+                           value='<date:date value="${userEcho.join_date}"/>'>
+                </td>
                 <td><input name="school" value="${userEcho.school}"></td>
                 <td><input name="online_id" value="${userEcho.online_id}"></td>
                 <td><input name="daily_url" value="${userEcho.daily_url}"></td>
-                <td><input name="declaration" value="${userEcho.declaration}"></td>
+                <td><input name="declaration" value="${userEcho.declaration}">
+                </td>
                 <td><input name="counselor" value="${userEcho.counselor}"></td>
-                <td><input name="userCustom.create_time" value='<date:date value="${userEcho.create_time}"/>'></td>
-                <td><input name="userCustom.update_time" value='<date:date value="${userEcho.update_time}"/>'></td>
+                <td><input name="userCustom.create_time"
+                           value='<date:date value="${userEcho.create_time}"/>'>
+                </td>
+                <td><input name="userCustom.update_time"
+                           value='<date:date value="${userEcho.update_time}"/>'>
+                </td>
                 <td><input type="submit" value="添加"/></td>
             </tr>
         </table>
@@ -174,7 +215,8 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
                     <a href="${pageContext.request.contextPath }/rest/${users.id}">修改</a>
-                    <a href="${pageContext.request.contextPath }" onclick="sendBtn(${users.id})" >删除</a>
+                    <a href="${pageContext.request.contextPath }"
+                       onclick="sendBtn(${users.id})">删除</a>
                 </td>
             </tr>
         </c:forEach>
