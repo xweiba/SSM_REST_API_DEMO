@@ -100,7 +100,7 @@
 </form>
 
 <%-- 添加模块 --%>
-<form name="usersFrom" action="${pageContext.request.contextPath}add" method="post">
+<form name="usersFrom" action="${pageContext.request.contextPath}/rest/" method="post">
     <%-- REST PUT 添加动作 --%>
     <input type="hidden" name="_method" value="PUT"/>
     <fieldset>
@@ -173,7 +173,7 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
-                    <a href="${pageContext.request.contextPath }edit/${users.id}">修改</a>
+                    <a href="${pageContext.request.contextPath }/rest/${users.id}">修改</a>
                     <a href="${pageContext.request.contextPath }" onclick="sendBtn(${users.id})" >删除</a>
                 </td>
             </tr>

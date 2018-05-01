@@ -86,16 +86,16 @@ public class UserControllerREST {
         return "redirect:/rest/list";
     }
 
-    //编辑页面
-    @RequestMapping(value = "/edit/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    //编辑页面 这里需要添加两个方法, POST方法接收update失败时转发回来的回显数据
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET,RequestMethod.POST})
     public String update(@PathVariable Integer id, Model model) throws Exception {
         UserCustom userCustom = userService.findUserById(id);
         model.addAttribute("userCustom", userCustom);
         return "rest/userEdit";
     }
 
-    //更新数据
-    @RequestMapping(value = "/edit/update/{id}", method = RequestMethod.POST)
+    //更新数据 这里必须跟编辑页面的url区分开来, 因为当数据错误时需要带着POST 的model数据 forward过去,会在本url死循环
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(Model model, @PathVariable Integer id,
                          @Validated(value = ValidationUpdate.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         logger.info("updateSubmit 执行中,userCustom: " + userCustom.toString());
@@ -116,7 +116,7 @@ public class UserControllerREST {
             //解决方法:
             //jsp 头部添加 <%@ page isErrorPage="true" %> */
             //出错之后要跳转的页面
-            return "forward:/rest/edit/" + id;
+            return "forward:/rest/" + id;
         }
         userService.updateUser(userCustom, id);
         return "redirect:/rest/list";
