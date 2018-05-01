@@ -5,7 +5,7 @@
   Time: 21:30
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -29,6 +29,7 @@
 当前用户:${username }|
 <c:if test="${username!=null }">
     <a href="${pageContext.request.contextPath }/logout.action">退出</a>
+    <hr>
 </c:if>
 
 
@@ -150,8 +151,8 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
-                    <a href="${pageContext.request.contextPath }userEdit.action?id=${users.id}">修改</a>
-                    <a href="${pageContext.request.contextPath }userDelete.action?id=${users.id}">删除</a>
+                    <a href="${pageContext.request.contextPath }/userEdit.action?id=${users.id}">修改</a>
+                    <a href="${pageContext.request.contextPath }/userDelete.action?id=${users.id}">删除</a>
                 </td>
                 <%--<td><input type="checkbox" name="items_id" value="${users.id}"></td>--%>
             </tr>

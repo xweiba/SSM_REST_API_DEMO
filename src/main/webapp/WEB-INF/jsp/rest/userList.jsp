@@ -41,11 +41,11 @@
 </style>
 
 <%-- Sprict--%>
-<script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
     /* 根据返回值弹出不同信息 */
     function sendBtn(id) {
-        var url = '/rest/' + id;
+        var url = '${pageContext.request.contextPath }' + '/rest/' + id;
         /*得到href的值*/
         $.ajax({
             url: url, /*url也可以是json之类的文件等等*/
@@ -63,6 +63,13 @@
     }
 </script>
 <body>
+<%-- 登陆模块 --%>
+当前用户:${username }|
+<c:if test="${username!=null }">
+    <a href="${pageContext.request.contextPath }/logout.action">退出</a>
+    <hr>
+</c:if>
+
 <%-- 错误信息 --%>
 <c:if test="${allErrors!=null}">
     <c:forEach items="${allErrors}" var="error">
@@ -219,8 +226,7 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
                     <a href="${pageContext.request.contextPath }/rest/${users.id}">修改</a>
-                    <a href="${pageContext.request.contextPath }"
-                       onclick="sendBtn(${users.id})">删除</a>
+                    <a onclick="sendBtn(${users.id})">删除</a>
                 </td>
             </tr>
         </c:forEach>
