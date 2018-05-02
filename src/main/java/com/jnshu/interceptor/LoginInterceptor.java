@@ -39,10 +39,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         //判断session
         HttpSession session = httpServletRequest.getSession();
         //从session中取出用户信息
+        logger.debug("尝试登陆用户: " + (String)session.getAttribute("username"));
         String username = (String)session.getAttribute("username");
 
         if(username!=null){
             //身份存在 放行
+            logger.debug("身份存在 放行");
             return true;
         }
         String test = "密码错误";
