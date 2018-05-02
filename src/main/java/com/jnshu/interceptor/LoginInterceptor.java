@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /* 登陆拦截器 */
 public class LoginInterceptor implements HandlerInterceptor {
@@ -22,10 +24,14 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //获取请求的url
         String url = httpServletRequest.getRequestURI();
-
         //判断url是否是公开地址(实际使用时将公开地址配置到配置文件中)
+
+        //正则匹配url
+        Pattern pattern = Pattern.compile("^.*login.action.*$|^.*rest\\/api\\/.*$");
+        Matcher matcher = pattern.matcher(url);
+
         //可以导入一个配置文件,匹配其中的请求
-        if (url.indexOf("login.action")>0){
+        if (matcher.matches()){
             //如果要进行登陆提交,放行
             return true;
         }
