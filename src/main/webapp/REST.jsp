@@ -13,7 +13,7 @@
     function requestJson() {
         $.ajax({
             type: 'PUT',
-            url: '/rest/api/',
+            url: '${pageContext.request.contextPath}/rest/api/',
             contentType: 'application/json;charset=utf-8',
             // dataType:'json',
             //数据格式是json串,用户信息
@@ -30,7 +30,7 @@
     function requestJson2() {
         $.ajax({
             type: 'PUT',
-            url: '/rest/api/key/',
+            url: '${pageContext.request.contextPath}/rest/api/key/',
             //请求的是key/value，这里不需要指定contentType，因为默认就是key/value类型
             //数据格式是 key/value
             /* 注意 key/value 发送时sping会使用自动转换来处理传入数据,这里的时间格式必须使用转换后的时间格式,否则自动转换时会失败*/
@@ -49,7 +49,7 @@
         var id = $("#updateId")[0].value;
         $.ajax({
             type: 'POST',
-            url: '/rest/api/' + id,
+            url: '${pageContext.request.contextPath}/rest/api/' + id,
             /* 如果是 key/value 格式,不需要声明,因为接收的时候并不是json格式的 */
             contentType: 'application/json;charset=utf-8',
             //数据格式是 key/value
@@ -68,7 +68,7 @@
         var id = $("#updateId")[0].value;
         $.ajax({
             type: 'POST',
-            url: '/rest/api/key/' + id,
+            url: '${pageContext.request.contextPath}/rest/api/key/' + id,
             //请求的是key/value，这里不需要指定contentType，因为默认就是key/value类型
             //数据格式是 key/value
             /* 注意 key/value 发送时sping会使用自动转换来处理传入数据,这里的时间格式必须使用转换后的时间格式,否则自动转换时会失败*/

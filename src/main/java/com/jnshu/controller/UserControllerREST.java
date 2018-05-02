@@ -176,7 +176,7 @@ key/value 请求
 更新用户          String            /api/key/{id}           method=POST*/
 
     //api 插入与更新 js测试页面
-    @RequestMapping(value = "/tset")
+    @RequestMapping(value = "/test")
     public ModelAndView success() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("REST");
