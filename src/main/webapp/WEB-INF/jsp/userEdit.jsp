@@ -26,7 +26,7 @@
         <font color="red">${error.defaultMessage}</font><br/>
     </c:forEach>
 </c:if>
-<form action="${pageContext.request.contextPath}/userEditSubmit.action">
+<form action="${pageContext.request.contextPath}/userEditSubmit.action" method="post">
     <%-- 注意 这个id提交时不会写入userCustom对象的属性--%>
     <input type="hidden" name="id" value="${userCustom.id}"/>
 <fieldset>
