@@ -17,7 +17,7 @@ public class LoginController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     UserService userService;
-    //登陆
+    //登陆 会影响api
     @RequestMapping("/login.action")
     public String login(HttpSession session, Auth auth) throws Exception {
         if(userService.findAuth(auth)){
@@ -33,7 +33,6 @@ public class LoginController {
     public String logout(HttpSession session){
         //删除session
         session.invalidate();
-
-        return "redirect:/userList.action";
+        return "redirect:/login.action";
     }
 }
