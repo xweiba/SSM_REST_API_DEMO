@@ -76,7 +76,7 @@ public class UserController {
 
     //将更新数据写入数据库,返回用户列表页面
     @RequestMapping("/userEditSubmit.action")
-    public String userEditSubmit(Model model, @Validated(value = {ValidationUpdate.class}) UserCustom userCustom, BindingResult bindingResult, Integer id) throws Exception {
+    public String userEditSubmit(Model model, Integer id, @Validated(value = {ValidationUpdate.class}) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
         if (bindingResult.hasErrors()) {
             //输出错误信息
@@ -93,16 +93,17 @@ public class UserController {
             return "forward:userEdit.action";
         }
         logger.debug("提交信息: " + userCustom);
+        /*userService.updateUser(userCustom, id);
+        return "redirect:/userList.action";*/
         if (userService.updateUser(userCustom, id)) {
             logger.info("更新成功: " + userCustom.toString());
-            //插入成功返回列表页面并显示插入用户
-            // model.addAttribute("userCustom",userCustom);
+            // 插入成功返回列表页面并显示插入用户
+            // model.addAttribute("findUserCustom",userCustom);
             return "redirect:userList.action";
         }
         //插入失败跳回编辑页面将数据回显
         logger.error("更新失败");
-        model.addAttribute("userCustom", userCustom);
-        return "userEdit";
+        return "forward:userEdit.action";
     }
 
     /* 添加用户 */
