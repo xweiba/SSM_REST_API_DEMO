@@ -21,8 +21,8 @@
 
 <style>
     table,table td,table th{border:1px solid;border-collapse:collapse;text-align: center;}
-    input{width: 95%;text-align: center;padding-left: 2px}
-    #name,#name2{width: 95%;text-align: center;padding-left: 2px}
+    input{width: 95%;text-align: center}
+    /*#name,#name2{width: 95%;text-align: center;padding-left: 2px}*/
 </style>
 
 <%-- 版本切换 --%>
@@ -64,9 +64,9 @@
                 <td>操作</td>
             </tr>
             <tr>
-                <td><input name="userCustom.id" value="${findUserCustom.id}"/></td>
+                <td><input name="userCustom.id" type="number" value="${findUserCustom.id}"/></td>
                 <td><input name="userCustom.username" value="${findUserCustom.username}"></td>
-                <td><input name="userCustom.qq" value="${findUserCustom.qq}"></td>
+                <td><input name="userCustom.qq" type="number" value="${findUserCustom.qq}"></td>
                 <td><input name="userCustom.profession" value="${findUserCustom.profession}"></td>
                 <td><input name="userCustom.join_date" value='<date:date value="${findUserCustom.join_date}"/>'></td>
                 <td><input name="userCustom.school" value="${findUserCustom.school}"></td>
@@ -103,7 +103,7 @@
             </tr>
             <tr>
                 <td><input name="username" value="${userEcho.username}"></td>
-                <td><input name="qq" value="${userEcho.qq}"></td>
+                <td><input name="qq" type="number" value="${userEcho.qq}"></td>
                 <td><input name="profession" value="${userEcho.profession}"></td>
                 <td><input name="join_date" value='<date:date value="${userEcho.join_date}"/>'></td>
                 <td><input name="school" value="${userEcho.school}"></td>

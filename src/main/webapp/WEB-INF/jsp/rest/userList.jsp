@@ -102,11 +102,11 @@
                 <td>操作</td>
             </tr>
             <tr>
-                <td><input name="userCustom.id" value="${findUserCustom.id}"/>
+                <td><input name="userCustom.id" type="number" value="${findUserCustom.id}"/>
                 </td>
                 <td><input name="userCustom.username"
                            value="${findUserCustom.username}"></td>
-                <td><input name="userCustom.qq" value="${findUserCustom.qq}">
+                <td><input name="userCustom.qq" type="number" value="${findUserCustom.qq}">
                 </td>
                 <td><input name="userCustom.profession"
                            value="${findUserCustom.profession}"></td>
@@ -170,7 +170,7 @@
             </tr>
             <tr>
                 <td><input name="username" value="${userEcho.username}"></td>
-                <td><input name="qq" value="${userEcho.qq}"></td>
+                <td><input name="qq" type="number" value="${userEcho.qq}"></td>
                 <td><input name="profession" value="${userEcho.profession}">
                 </td>
                 <td><input name="join_date"

@@ -50,7 +50,7 @@
             <tr>
                 <td>${userCustom.id}</td>
                 <td><input name="username" value="${userCustom.username}"></td>
-                <td><input name="qq" value="${userCustom.qq}"></td>
+                <td><input name="qq" type="number" value="${userCustom.qq}"></td>
                 <td><input name="profession" value="${userCustom.profession}"></td>
                 <td><input name="join_date" value="<date:date value ="${userCustom.join_date}"/>"</td>
                 <td><input name="school" value="${userCustom.school}"></td>
