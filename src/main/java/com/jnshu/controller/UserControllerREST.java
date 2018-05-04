@@ -54,7 +54,7 @@ public class UserControllerREST {
     /* WEB-INF/jsp/userList.jsp */
 
     //综合页面 默认显示所有用户信息, 提供搜索功能
-    @RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
     public String list(Model model, UserQV userQV) throws Exception {
         logger.debug(userQV.toString());
         List<UserCustom> userCustomList = userService.findUserMore(userQV);
