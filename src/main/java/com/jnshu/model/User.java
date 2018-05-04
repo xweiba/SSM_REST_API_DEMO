@@ -31,6 +31,7 @@ Hibernate Validator提供的校验注解：
 */
 
 public class User {
+    //当属性值为基本类型int时,是不能为空的,要空属性必须为对象类型 Integer
     private Integer id;
     //姓名
     @Size(min = 1, max = 10, message = "{user.name.length.error}", groups = {ValidationInsert.class, ValidationUpdate.class})
