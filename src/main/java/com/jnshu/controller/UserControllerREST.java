@@ -64,7 +64,13 @@ public class UserControllerREST {
         return "rest/userList";
     }
 
-    //插入数据
+    /**
+    * @Description: 插入数据
+    * @Param: [model, userCustom, bindingResult]
+    * @return: java.lang.String
+    * @Author: Mr.Wang
+    * @Date: 2018/5/6
+    */
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     public String addUser(Model model, @Validated(value = ValidationInsert.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
