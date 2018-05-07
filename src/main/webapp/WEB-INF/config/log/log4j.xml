@@ -29,7 +29,7 @@
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout"><!-- loyout表示输出方式，可以多种，class值区分，PatternLayout表示自定义格式 -->
             <param name="ConversionPattern"
-                   value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n"/>
+                   value="%d{ISO8601} 耗时：%r 日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m %n"/>
         </layout>
     </appender>
 
@@ -42,7 +42,7 @@
         <param name="DatePattern" value="'debug_'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %5p [%c:%L] - %m%n"/>
+                   value="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %5p %c:%L - %m%n"/>
         </layout>
     </appender>
 
@@ -53,7 +53,7 @@
         <param name="DatePattern" value="'info_'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n"/>
+                   value="%d{ISO8601} 耗时：%r 日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m %n"/>
         </layout>
         <!--限制输出级别 -->
         <!-- filter过滤器设置输出的级别:ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
@@ -73,7 +73,7 @@
         <param name="DatePattern" value="'error_'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n"/>
+                   value="%d{ISO8601} 耗时：%r 日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m %n"/>
         </layout>
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMin" value="ERROR"/>
@@ -90,7 +90,7 @@
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n"/>
+                   value="%d{ISO8601} 耗时：%r 日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m %n"/>
         </layout>
     </appender>
     <appender name="userControllerREST"
@@ -101,7 +101,7 @@
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %5p [%c:%L] - %m%n"/>
+                   value="%d{yyyy-MM-dd HH:mm:ss.SSS} %t %5p %c:%L - %m%n"/>
         </layout>
     </appender>
 
