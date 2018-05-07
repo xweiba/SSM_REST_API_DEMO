@@ -3,7 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--扫描controller-->
     <context:component-scan base-package="com.jnshu.controller"/>
     <!-- 自动配置 处理器映射器 处理器适配器 -->
@@ -94,4 +95,8 @@
             <bean class="com.jnshu.interceptor.HandlerInterceptor2"/>
         </mvc:interceptor>
     </mvc:interceptors>-->
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean name="timerAspectController" class="com.jnshu.aop.TimerAspectController"/>
+
 </beans>

@@ -1,5 +1,6 @@
 package com.jnshu.interceptor;
 
+import com.jnshu.model.MonitorTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,12 +17,17 @@ public class LoginInterceptor implements HandlerInterceptor {
     //日志
     private static Logger logger = LoggerFactory.getLogger(HandlerInterceptor.class);
 
+    //Controller执行的全过程都在这里,可以用作执行时间日志
+    //计算时间
+    private Long timer = Long.valueOf(0);
+
     //执行Handler方法之前执行
     //用于身份认证、身份授权
     //比如身份认证，如果认证通过表示当前用户没有登陆，需要此方法拦截不再向下执行
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-
+        //开始时间
+        this.timer = System.currentTimeMillis();
         //获取请求的url
         String url = httpServletRequest.getRequestURI();
         //判断url是否是公开地址(实际使用时将公开地址配置到配置文件中)
@@ -53,7 +59,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         // WEB-INF/jsp/login.jsp访问的是原地址+WEB-INF/jsp/login.jsp
         httpServletRequest.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(httpServletRequest, httpServletResponse);
         logger.info("用户身份需要认证,跳转至登陆页面,执行Handler方法之前执行");
-        //return false表示拦截，不向下执行
+        //return false表示拦截，不向下执行 此时应计算时间
+        this.timer = System.currentTimeMillis() - this.timer;
+        logger.debug( "性能日志 页面生成时长 : " + this.timer + "ms" );
         //return true表示放行
         return false;
     }
@@ -70,6 +78,9 @@ public class LoginInterceptor implements HandlerInterceptor {
     //应用场景：统一异常处理，统一日志处理
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+        //执行完毕时间
+        this.timer = System.currentTimeMillis() - this.timer;
         logger.info("HandlerInterceptor1 afterCompletion 拦截器执行了,Handler运行完成后执行此方法");
+        logger.debug("性能日志 页面生成时长 : " + this.timer + "ms");
     }
 }
