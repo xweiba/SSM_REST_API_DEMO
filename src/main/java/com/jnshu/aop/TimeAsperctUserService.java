@@ -62,7 +62,7 @@ public class TimeAsperctUserService {
         Object result = proceedingJoinPoint.proceed();
         long time = System.currentTimeMillis() -start;
         monitorTime.setComsumeTime(time);
-        logger.debug( "性能日志 Controller类: "+monitorTime.getClassName()+" 中方法 "+monitorTime.getMethodName()+" 已执行 "
+        logger.debug( "性能日志 DB类: "+monitorTime.getClassName()+" 中方法 "+monitorTime.getMethodName()+" 已执行 "
                 + "执行时间: " + monitorTime.getLogTime() + " 执行时长: " + monitorTime.getComsumeTime()+"ms" );
         return result;
     }
