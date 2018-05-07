@@ -144,7 +144,7 @@ Log4jConfigListener必须要在Spring的Listener之前。 -->
 
     <!-- 配置默认页面 -->
     <welcome-file-list>
-        <welcome-file>/WEB-INF/jsp/userList.jsp</welcome-file>
+        <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
 
