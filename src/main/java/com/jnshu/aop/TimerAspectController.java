@@ -55,8 +55,7 @@ public class TimerAspectController {
         Object result = proceedingJoinPoint.proceed();
         long time = System.currentTimeMillis() -start;
         monitorTime.setComsumeTime(time);
-        logger.debug( "性能日志 Controller类: "+monitorTime.getClassName()+" 中方法 "+monitorTime.getMethodName()+" 已执行 "
-                + "执行时间: " + monitorTime.getLogTime() + " 执行时长: " + monitorTime.getComsumeTime() );
+        logger.debug( "性能日志 Controller类 " + "响应时间: " + monitorTime.getComsumeTime() + "ms " + "执行信息: 执行 " + monitorTime.getClassName()+" 中方法 "+monitorTime.getMethodName() + " 执行时间: " + monitorTime.getLogTime() );
         return result;
     }
 }
