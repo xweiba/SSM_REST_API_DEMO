@@ -70,7 +70,6 @@ public class UserController {
         logger.debug("userCustom.toString(): " + userCustom.toString());
 
         model.addAttribute("userCustom", userCustom);
-
         return "userEdit";
     }
 
