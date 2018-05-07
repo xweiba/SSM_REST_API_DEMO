@@ -20,7 +20,7 @@ import java.util.Date;
 
 @Aspect
 public class TimerAspectController {
-
+    // 日志
     private static Logger logger = LoggerFactory.getLogger(TimerAspectController.class);
     /** 
     * @Description: 定义切入点 
@@ -33,6 +33,14 @@ public class TimerAspectController {
     @Pointcut(value = "execution(* com.jnshu.controller.*Controller*.*(..))")
     private void handlerTimer(){}
 
+    /**
+    * @Description: 环绕通知
+    * @Param: controllerLogTimer
+    * @return: java.lang.Object
+    * @Author: Mr.Wang
+    * @Date: 2018/5/7
+    * @Explain: handlerTimer() 代表使用 handlerTimer()的切点
+    */
     @Around(value = "handlerTimer()")
     public Object controllerLogTimer(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         // 创建性能监控信息类
@@ -51,7 +59,9 @@ public class TimerAspectController {
 
         // 计时并调用目标函数
         logger.debug("====Controller切面开始====");
+        // System.currentTimeMillis() 返回当前时间,单位毫秒ms
         long start = System.currentTimeMillis();
+        // 执行代理类
         Object result = proceedingJoinPoint.proceed();
         long time = System.currentTimeMillis() -start;
         monitorTime.setComsumeTime(time);
