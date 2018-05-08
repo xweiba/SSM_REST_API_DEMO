@@ -1,6 +1,5 @@
 package com.jnshu.interceptor;
 
-import com.jnshu.model.MonitorTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     //比如身份认证，如果认证通过表示当前用户没有登陆，需要此方法拦截不再向下执行
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        //开始时间
+        //handler 开始时间
         this.timer = System.currentTimeMillis();
         //获取请求的url
         String url = httpServletRequest.getRequestURI();
@@ -59,7 +58,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // WEB-INF/jsp/login.jsp访问的是原地址+WEB-INF/jsp/login.jsp
         httpServletRequest.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(httpServletRequest, httpServletResponse);
         logger.info("用户身份需要认证,跳转至登陆页面,执行Handler方法之前执行");
-        //return false表示拦截，不向下执行 此时应计算时间
+        //return false表示拦截，不向下执行 此时应计算页面结束时间
         this.timer = System.currentTimeMillis() - this.timer;
         logger.debug( "性能日志 页面生成时长 : " + this.timer + "ms" );
         //return true表示放行
