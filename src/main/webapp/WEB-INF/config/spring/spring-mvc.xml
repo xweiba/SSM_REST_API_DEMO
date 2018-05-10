@@ -97,6 +97,6 @@
     </mvc:interceptors>-->
 
     <!-- 添加Controller切面 -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:aspectj-autoproxy />
     <bean name="timerAspectController" class="com.jnshu.aop.TimerAspectController"/>
 </beans>
