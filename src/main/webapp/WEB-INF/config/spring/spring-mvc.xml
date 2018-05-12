@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -62,7 +63,7 @@
 
     <!-- 静态资源 -->
     <!-- 当做了spring自定义类型转换时他会将所有的请求都尝试转换,转换该静态资源时无法完成转换会抛出一个debug异常,不影响静态资源的访问.-->
-    <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+    <mvc:resources location="/WEB-INF/static/" mapping="/static/**"/>
     <!-- 静态资源end-->
     <!-- 使用默认servlet来处理未注入的handler url-->
     <!--<mvc:default-servlet-handler />-->
