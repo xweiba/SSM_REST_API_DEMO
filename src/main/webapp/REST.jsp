@@ -7,7 +7,7 @@
     <title>REST风格api测试</title>
 </head>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath }/js/jquery-3.3.1.min.js"></script>
+        src="${pageContext.request.contextPath }/static/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     //请求的是json，返回插入id
     function requestJson() {

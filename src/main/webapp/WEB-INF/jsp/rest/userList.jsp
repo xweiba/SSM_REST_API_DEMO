@@ -41,7 +41,7 @@
 </style>
 
 <%-- Sprict--%>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
     /* 根据返回值弹出不同信息 */
     function sendBtn(id) {
