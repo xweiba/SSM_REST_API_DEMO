@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" >
     <title>REST风格测试</title>
 </head>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     //json插入请求
     function insertJson(){
