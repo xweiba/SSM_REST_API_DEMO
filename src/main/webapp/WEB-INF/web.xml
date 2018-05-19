@@ -96,32 +96,32 @@ Log4jConfigListener必须要在Spring的Listener之前。 -->
     </listener>
 
     <!-- springMVC前端控制器 -->
-    <servlet>
-        <!--  定义servlet的名字-->
+    <!--<servlet>
+        &lt;!&ndash;  定义servlet的名字&ndash;&gt;
         <servlet-name>springMybaits</servlet-name>
-        <!--    servlet类型   -->
+        &lt;!&ndash;    servlet类型   &ndash;&gt;
         <servlet-class>org.springframework.web.servlet.DispatcherServlet
         </servlet-class>
-        <!-- init-param是配置Servlet的初始化参数。比如你的servlet里面有个属性为int total=0，默认是0，你想让他初始 -->
+        &lt;!&ndash; init-param是配置Servlet的初始化参数。比如你的servlet里面有个属性为int total=0，默认是0，你想让他初始 &ndash;&gt;
         <init-param>
-            <!-- contextConfigLocation配置springmvc加载的配置文件(配置处理器映射器，适配器等)如果不配置contextConfigLoaction，默认加载的是/WEB-INF/servlet名称-servlet.xml(springmvc-servlet.xml)-->
+            &lt;!&ndash; contextConfigLocation配置springmvc加载的配置文件(配置处理器映射器，适配器等)如果不配置contextConfigLoaction，默认加载的是/WEB-INF/servlet名称-servlet.xml(springmvc-servlet.xml)&ndash;&gt;
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/config/spring/spring-mvc.xml</param-value>
         </init-param>
     </servlet>
 
-    <!-- 端拦截器控制器 -->
+    &lt;!&ndash; 端拦截器控制器 &ndash;&gt;
     <servlet-mapping>
         <servlet-name>springMybaits</servlet-name>
-        <!-- 该servlet名为mvc-dispatcher（名称可修改），用于拦截请求（url-pattern为 / ，说明拦截所有请求），
-             并交由Spring MVC的后台的 处理器映射器 来根据请求的url来处理这一个请求。这一项配置是必须的。 -->
-        <!-- 第一种:*.action。访问以.action结尾由DispatcherServlet进行解析；
+        &lt;!&ndash; 该servlet名为mvc-dispatcher（名称可修改），用于拦截请求（url-pattern为 / ，说明拦截所有请求），
+             并交由Spring MVC的后台的 处理器映射器 来根据请求的url来处理这一个请求。这一项配置是必须的。 &ndash;&gt;
+        &lt;!&ndash; 第一种:*.action。访问以.action结尾由DispatcherServlet进行解析；
          第二种:/，所有访问的地址都由DispatcherServlet进行解析，对于静态文件的解析，
          我们要配置不让DispatcherServlet进行解析。使用此种方法可以实现RESTful风格的url；
          第三种:/*，这样配置不对，使用这种配置，最终要转发到一个jsp页面时，仍然会由
-         DispatcherServlet进行解析jsp地址，它不能根据jsp页面找到Handler，会报错-->
+         DispatcherServlet进行解析jsp地址，它不能根据jsp页面找到Handler，会报错&ndash;&gt;
         <url-pattern>*.action</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <!-- 解析 DELETE 和 PUT 请求,前端借助_method属性 -->
     <filter>

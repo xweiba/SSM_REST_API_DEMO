@@ -40,10 +40,14 @@
                     <port>8080</port>  <!-- 项目的端口-->
                     <path>/taskTwo</path> <!-- web项目的项目名称-->
                     <uriEncoding>UTF-8</uriEncoding>
-                    <url>http://localhost:8080/manager/text</url> <!-- 对应的 tomcat manager的接口-->
+                    <!-- 对应的 tomcat manager的接口-->
+                    <!-- 本地测试 -->
+                    <!--<url>http://localhost:8080/manager/text</url>-->
+                    <!-- 远程测试 -->
+                    <url>http://45.76.214.173:8080/manager/text</url>
                     <server>tomcat7</server>  <!-- setting.xml 的server id-->
-                    <username>admin</username> <!-- tomcat-user.xml 的 username -->
-                    <password>123456</password> <!-- tomcat-user,xml 的 password -->
+                    <username>tomcat</username> <!-- tomcat-user.xml 的 username -->
+                        <password>managerstatus</password> <!-- tomcat-user,xml 的 password -->
                 </configuration>
             </plugin>
             <plugin>
@@ -109,6 +113,29 @@
     </properties>
 
     <dependencies>
+        <!-- memcached -->
+        <dependency>
+            <groupId>com.whalin</groupId>
+            <artifactId>Memcached-Java-Client</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <!-- end -->
+
+        <!-- 对象池 -->
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <!-- end -->
+
+        <!-- junit  -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
         <!-- 日志相关jar包 -->
         <dependency>
             <groupId>log4j</groupId>
@@ -288,6 +315,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
         </dependency>
         <!-- spring end -->
     </dependencies>

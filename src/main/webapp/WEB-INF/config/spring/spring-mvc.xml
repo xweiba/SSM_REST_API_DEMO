@@ -11,6 +11,8 @@
     <!-- 自动配置 处理器映射器 处理器适配器 -->
     <!-- conversionService 自定义Spring参数绑定 -->
     <!-- validator 效验器-->
+    <!--<mvc:annotation-driven
+                           validator="validator"/>-->
     <mvc:annotation-driven conversion-service="conversionService"
                            validator="validator"/>
 
@@ -52,7 +54,6 @@
         </property>
         <!-- 转换器end-->
     </bean>
-
     <!-- 自定义视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--定义前缀-->
@@ -72,16 +73,16 @@
     <!-- 只要你实现了HandlerExceptionResolver接口，这个类就是一个全局异常处理器 -->
     <bean class="com.jnshu.exception.UserExceptionResolver"/>
 
-    <!-- 拦截器 -->
+    <!--&lt;!&ndash; 拦截器 &ndash;&gt;
     <mvc:interceptors>
-        <!-- 多个拦截器，顺序执行 -->
-        <!-- 登录认证拦截器 -->
+        &lt;!&ndash; 多个拦截器，顺序执行 &ndash;&gt;
+        &lt;!&ndash; 登录认证拦截器 &ndash;&gt;
         <mvc:interceptor>
-            <!--/** 表示所有url包括子url路径 -->
+            &lt;!&ndash;/** 表示所有url包括子url路径 &ndash;&gt;
             <mvc:mapping path="/**"/>
             <bean class="com.jnshu.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
     <!-- 拦截器 测试 -->
     <!--<mvc:interceptors>

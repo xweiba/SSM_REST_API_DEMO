@@ -12,7 +12,6 @@
     <!--<bean id="userController" class="com.jnshu.controller.UserController"/>-->
     <!-- Controller AOP-->
     <bean name="timeAspectUserService" class="com.jnshu.aop.TimeAsperctUserService"/>
-
     <!--
     织入失败
     在项目中，一般都会在spring mvc配置文件中配置全盘扫描Controller，在Spring配置文件中配置扫描其它需要的注解。因此，有可能你在spring配置文件中添加了<aop:aspectj-autoproxy/>能识别@Aspect且作用于其它层的aop能正常运行，但作用于Controller的aop却无法生效。
