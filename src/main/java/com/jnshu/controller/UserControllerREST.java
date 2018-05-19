@@ -202,7 +202,7 @@ key/value 请求
     @RequestMapping(value = "/api/search/", method = RequestMethod.POST)
     @ResponseBody
     public List<UserCustom> searchUser(@RequestBody UserQV userQV) throws Exception {
-        logger.debug("userQV: " + userQV.getUserCustom());
+        // logger.debug("userQV: " + userQV.getUserCustom());
         return userService.findUserMore(userQV);
     }
 
@@ -210,7 +210,7 @@ key/value 请求
     @RequestMapping(value = "/api/search/key", method = RequestMethod.POST)
     @ResponseBody
     public List<UserCustom> searchUserKey(UserQV userQV) throws Exception {
-        logger.debug("userQV: " + userQV.getUserCustom());
+        // logger.debug("userQV: " + userQV.getUserCustom());
         return userService.findUserMore(userQV);
     }
 
@@ -218,7 +218,7 @@ key/value 请求
     @RequestMapping(value = "/api/{id}", method = RequestMethod.GET)
     @ResponseBody
     public UserCustom jsonUser(@PathVariable("id") int test) throws Exception {
-        logger.info("GET 获取数据中,获取id为" + test);
+        // logger.info("GET 获取数据中,获取id为" + test);
         return userService.findUserById(test);
     }
 
@@ -226,7 +226,7 @@ key/value 请求
     @RequestMapping(value = "/api/list", method = RequestMethod.GET)
     @ResponseBody
     public List<UserCustom> jsonList() throws Exception {
-        logger.info("GET 获取所有数据中");
+        // logger.info("GET 获取所有数据中");
         return userService.findUserMore(null);
     }
 
@@ -234,7 +234,7 @@ key/value 请求
     @RequestMapping(value = "/api/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public boolean testDELETE(@PathVariable("id") int id) throws Exception {
-        logger.info("DELETE 删除执行中, id为:" + id);
+        // logger.info("DELETE 删除执行中, id为:" + id);
         return userService.deleteUser(id);
     }
 
@@ -262,7 +262,7 @@ key/value 请求
         /* 效验输入信息 */
         String Errors = getString(bindingResult);
         if (Errors != null) return Errors;
-        logger.info("PUT 插入数据执行中,传入对象值: " + userCustom.toString());
+        // logger.info("PUT 插入数据执行中,传入对象值: " + userCustom.toString());
         userService.insertUser(userCustom);
         return "插入成功,id为:  " + userCustom.getId();
     }
@@ -274,7 +274,7 @@ key/value 请求
         /* 效验输入信息 */
         String Errors = getString(bindingResult);
         if (Errors != null) return Errors;
-        logger.info("PUT 插入数据执行中,传入对象值: " + userCustom.toString());
+        // logger.info("PUT 插入数据执行中,传入对象值: " + userCustom.toString());
         userService.insertUser(userCustom);
         return "插入成功,id为: " + userCustom.getId();
     }
@@ -298,4 +298,7 @@ key/value 请求
         if (Errors != null) return Errors;
         return id + "的更新状态: " + userService.updateUser(userCustom, id);
     }
+
+
+
 }
