@@ -32,7 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //判断url是否是公开地址(实际使用时将公开地址配置到配置文件中)
 
         //正则匹配url
-        Pattern pattern = Pattern.compile("^.*login.action.*$|^.*rest\\/api\\/.*$|^.*home\\/.*$|^.*profession\\/.*$");
+        Pattern pattern = Pattern.compile("^.*login.action.*$|^.*rest\\/api\\/.*$|^.*home\\/.*$|^.*profession\\/.*$|^.*memcache\\/.*$");
         Matcher matcher = pattern.matcher(url);
 
         //可以导入一个配置文件,匹配其中的请求

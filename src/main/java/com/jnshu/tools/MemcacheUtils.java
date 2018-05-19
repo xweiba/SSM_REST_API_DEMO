@@ -5,6 +5,7 @@ import com.whalin.MemCached.MemCachedClient;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: taskTwo
@@ -20,7 +21,6 @@ public class MemcacheUtils {
     /* 实例化 MemCachedClient, */
     static {
         if (cachedClient == null) {
-            System.out.println("初始化中...");
             cachedClient = new MemCachedClient("memCachedPool");
         }
     }
@@ -66,11 +66,14 @@ public class MemcacheUtils {
         try {
             flag = cachedClient.set(key, value, expire);
         } catch (Exception e) {
-            MemcachedLog.writeLog("Memcached get方法报错，key值：" + key + "\r\n" + exceptionWrite(e));
+            MemcachedLog.writeLog("Memcached set方法报错，key值：" + key + "\r\n" + exceptionWrite(e));
         }
         return flag;
     }
+
+
     /* set end */
+
 
 
 
@@ -165,7 +168,6 @@ public class MemcacheUtils {
 
 
     /* get */
-
     /**
      * @Description: 用于检索之前添加的键值 获取其相对的值
      * @Param: [key] 键
@@ -176,7 +178,6 @@ public class MemcacheUtils {
     public static Object get(String key) {
         Object object = null;
         try {
-            System.out.println("get key : " + key);
             object = cachedClient.get(key);
         } catch (Exception e) {
             MemcachedLog.writeLog("Memcached get方法报错，key值：" + key + "\r\n" + exceptionWrite(e));
@@ -189,41 +190,43 @@ public class MemcacheUtils {
 
 
     /* delete */
-    /** 
-    * @Description: 删除 memcached 中的任何现有值。
-    * @Param: [key] 键
-    * @Param: @SuppressWarnings("deprecation") 抑制相对于弃用的警告
-    * @return: boolean 
-    * @Author: Mr.Wang 
-    * @Date: 2018/5/18 
-    */
+
+    /**
+     * @Description: 删除 memcached 中的任何现有值。
+     * @Param: [key] 键
+     * @Param: @SuppressWarnings("deprecation") 抑制相对于弃用的警告
+     * @return: boolean
+     * @Author: Mr.Wang
+     * @Date: 2018/5/18
+     */
     // @SuppressWarnings("deprecation") 这里不使用废弃的方法
-    public static boolean delete(String key){
+    public static boolean delete(String key) {
         boolean flag = false;
         try {
             flag = cachedClient.delete(key);
-        } catch (Exception e){
+        } catch (Exception e) {
             MemcachedLog.writeLog("Memcached delete方法报错，key值：" + key + "\r\n" + exceptionWrite(e));
         }
-        return false;
+        return flag;
     }
     /* delete end*/
 
 
 
     /* flash */
-    /** 
-    * @Description: 清理缓存中的所有键/值对
-    * @Param: [] 
-    * @return: boolean
-    * @Author: Mr.Wang 
-    * @Date: 2018/5/18 
-    */ 
-    public static boolean flashAll(){
+
+    /**
+     * @Description: 清理缓存中的所有键/值对
+     * @Param: []
+     * @return: boolean
+     * @Author: Mr.Wang
+     * @Date: 2018/5/18
+     */
+    public static boolean flashAll() {
         boolean flag = false;
         try {
             flag = cachedClient.flushAll();
-        } catch (Exception e){
+        } catch (Exception e) {
             MemcachedLog.writeLog("Memcached flashAll方法报错\r\n" + exceptionWrite(e));
         }
         return flag;
