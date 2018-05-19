@@ -17,16 +17,16 @@ public class SpringAutoBind implements Converter<String, Long> {
     /* string 类型的日期格式转换为Long类型的日期格式 */
     @Override
     public Long convert(String source) {
-        logger.info("准备转换:" + source);
+        // logger.info("准备转换:" + source);
         if (!source.equals("")) {
             //定义数据格式
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
-                logger.debug("spring 注解绑定成功" + source);
+                // logger.debug("spring 注解绑定成功" + source);
                 //将字符串类型转换为Data类型,
                 // 然后使用getTime()获取Long类型的微秒数
                 // 最后除以1000得到秒为单位的long类型数
-                logger.info("String转为data后为:" + simpleDateFormat.parse(source));
+                // logger.info("String转为data后为:" + simpleDateFormat.parse(source));
                 Long so = simpleDateFormat.parse(source).getTime() / 1000;
                 return so;
             } catch (ParseException e) {
