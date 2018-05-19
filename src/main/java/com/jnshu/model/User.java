@@ -5,6 +5,7 @@ import com.jnshu.validation.ValidationUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 /*
 * JSR提供的校验注解：
@@ -30,7 +31,11 @@ Hibernate Validator提供的校验注解：
 @Range(min=,max=,message=)  被注释的元素必须在合适的范围内
 */
 
-public class User {
+public class User implements Serializable {
+
+    // 序列化uuid
+    // private static final long serialVersionUID = -4743372914435189725L;
+
     //当属性值为基本类型int时,是不能为空的,要空属性必须为对象类型 Integer
     private Integer id;
     //姓名
