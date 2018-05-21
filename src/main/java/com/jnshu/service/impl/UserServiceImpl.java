@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     public List<UserCustom> findUserMore(UserQV userQV) throws Exception {
         logger.info("传入 userQv: " + userQV.toString());
         // 复杂查询 每次数据都不同 不能做缓存 当查询不为空时 执行
-        if(userQV.getUser() != null){
+        if(userQV.getUserCustom() != null){
             logger.info("复杂查询开始");
             return userDao.findUserMore(userQV);
         }
@@ -99,13 +99,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteUser(Integer i) throws Exception {
         // 删除缓存
-        Boolean flag = MemcacheUtils.delete(String.valueOf(i));
+        Boolean flag = userDao.deleteUser(i);
         // 操作数据后 删除 查询所有信息 的缓存
         if(flag){
             logger.info("userAll is delete");
             MemcacheUtils.delete("userAll");
         }
-        return userDao.deleteUser(i);
+        return flag;
     }
 
     /* Session 验证 */

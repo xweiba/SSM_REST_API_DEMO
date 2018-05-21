@@ -1,5 +1,7 @@
 package com.jnshu.interceptor;
 
+import com.jnshu.model.Auth;
+import com.jnshu.tools.MemcacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -44,13 +46,18 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
         //判断session
         HttpSession session = httpServletRequest.getSession();
         //从session中取出用户信息
-        logger.debug("尝试登陆用户: " + (String)session.getAttribute("username"));
         String username = (String)session.getAttribute("username");
+        logger.debug("尝试登陆用户: " + username + "session_id:" + session.getId());
 
-        if(username!=null){
-            //身份存在 放行
-            logger.debug("身份存在 放行");
-            return true;
+
+        if(username !="" &&username!=null){
+            String sessionName = (String) MemcacheUtils.get(session.getId());
+            logger.info("登陆用户名: " + username +  ", sessionName:" + sessionName + ", session.getId():" + session.getId());
+            if(username.equals(sessionName)){
+                //身份存在 放行
+                logger.debug("身份存在 放行");
+                return true;
+            }
         }
         String test = "密码错误";
         //执行到这里标识用户身份需要认证,跳转到登陆界面

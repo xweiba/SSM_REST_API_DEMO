@@ -1,7 +1,10 @@
 package com.jnshu.model;
+
+import java.io.Serializable;
+
 /* session登陆验证 已废弃 */
 /* 登陆 */
-public class Auth {
+public class Auth implements Serializable{
     //登陆用户名
     private String username;
     //登陆密码

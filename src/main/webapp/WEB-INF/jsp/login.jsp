@@ -11,7 +11,10 @@
     <title>系统登陆</title>
 </head>
 <body>
-${test}
+tomcat_1<br/>
+SessionID:<%session.setAttribute("liuhuan.ml","liuhuan.ml");%><%=session.getId() %><br/>
+Createdon:<%=session.getCreationTime() %>
+
 <form style="text-align: center" action="${pageContext.request.contextPath }/login.action" method="post">
     用户账号:<input type="text" name="username"/><br/>
     用户密码:<input type="password" name="password"/><br/>

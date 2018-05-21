@@ -26,7 +26,7 @@
 </style>
 
 <%-- 版本切换 --%>
-<div style="text-align: center"><input type="button" value="切换REST版本" onClick="location.href='${pageContext.request.contextPath }/rest/list/'" /></div>
+<div style="text-align: center"><input type="button" value="切换REST版本" onClick="location.href='${pageContext.request.contextPath }/u/list/'" /></div>
 <hr>
 <%-- 登陆模块 --%>
 当前用户:${username }|
@@ -44,7 +44,7 @@
 </c:if>
 
 <%-- 查询模块 --%>
-<form name="usersFrom" action="${pageContext.request.contextPath}/userList.action" method="post">
+<form name="usersFrom" action="${pageContext.request.contextPath}/s/userList.action" method="post">
     <fieldset>
         <legend>查询条件</legend>
         <table width="100%" style="table-layout:fixed;word-break:break-all;background:#f2f2f2">
@@ -83,7 +83,7 @@
 </form>
 
 <%-- 添加模块 --%>
-<form name="usersFrom" action="${pageContext.request.contextPath}/userAdd.action" method="post">
+<form name="usersFrom" action="${pageContext.request.contextPath}/s/userAdd.action" method="post">
     <fieldset>
         <legend>添加用户</legend>
         <table width="100%" style="table-layout:fixed;word-break:break-all;background:#f2f2f2">
@@ -154,8 +154,8 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
-                    <a href="${pageContext.request.contextPath }/userEdit.action?id=${users.id}">修改</a>
-                    <a href="${pageContext.request.contextPath }/userDelete.action?id=${users.id}">删除</a>
+                    <a href="${pageContext.request.contextPath }/s/userEdit.action?id=${users.id}">修改</a>
+                    <a href="${pageContext.request.contextPath }/s/userDelete.action?id=${users.id}">删除</a>
                 </td>
                 <%--<td><input type="checkbox" name="items_id" value="${users.id}"></td>--%>
             </tr>

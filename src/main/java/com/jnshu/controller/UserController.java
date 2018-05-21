@@ -30,6 +30,7 @@ import java.util.List;
 
 
 @Controller
+@RequestMapping(value = "/s")
 public class UserController {
     //设置本类的log
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -37,10 +38,10 @@ public class UserController {
     @Autowired
     private UserService userService;
     //首页跳转到综合页面 这是被 springmvc_rest 拦截处理的
-    @RequestMapping("/")
+    /*@RequestMapping("/")
     public String test() {
         return "redirect:/rest/list";
-    }
+    }*/
     //综合页面
     @RequestMapping("/userList.action")
     public String UserList(Model model, UserQV userQV) throws Exception {
@@ -89,7 +90,7 @@ public class UserController {
             //数据回显
             model.addAttribute("userCustom", userCustom);
             //出错之后要跳转的页面
-            return "forward:userEdit.action";
+            return "forward:/s/userEdit.action";
         }
         // logger.debug("提交信息: " + userCustom);
         /*userService.updateUser(userCustom, id);
@@ -98,11 +99,11 @@ public class UserController {
             // logger.info("更新成功: " + userCustom.toString());
             // 插入成功返回列表页面并显示插入用户
             // model.addAttribute("findUserCustom",userCustom);
-            return "redirect:userList.action";
+            return "redirect:/s/userList.action";
         }
         //插入失败跳回编辑页面将数据回显
         logger.error("更新失败");
-        return "forward:userEdit.action";
+        return "forward:/s/userEdit.action";
     }
 
     /* 添加用户 */
@@ -121,10 +122,10 @@ public class UserController {
             //数据回显
             model.addAttribute("userEcho", user);
             //出错之后要跳转的页面
-            return "forward:userList.action";
+            return "forward:/s/userList.action";
         }
         userService.insertUser(user);
-        return "redirect:userList.action";
+        return "redirect:/s/userList.action";
     }
 
     /* 删除用户 */
@@ -133,11 +134,11 @@ public class UserController {
         // logger.debug("删除id: " + id);
         if (id > 0) {
             userService.deleteUser(id);
-            return "redirect:userList.action";
+            return "redirect:/s/userList.action";
         } else {
             String allErrors = "id必须大于0";
             model.addAttribute("allErrors", allErrors);
-            return "forward:userList.action";
+            return "forward:/s/userList.action";
         }
     }
 }

@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>错误提示!!!</title>
-    <meta http-equiv="refresh" content='5; url=${pageContext.request.contextPath }/userList.action'>
+    <meta http-equiv="refresh" content='5; url=${pageContext.request.contextPath }/s/userList.action'>
 </head>
 <body>
 <h1 style="text-align:center" ><font color="red">${message}</font></h1>
