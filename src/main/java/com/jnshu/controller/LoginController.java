@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSession;
-
+/* session登陆验证 已废弃 */
 /* 认证Controller */
 @Controller
 public class LoginController {
@@ -20,7 +20,7 @@ public class LoginController {
     @Autowired
     UserService userService;
     //登陆 会影响api
-    @RequestMapping("/login.action")
+    @RequestMapping("/login")
     public String login(HttpSession session, Auth auth) throws Exception {
         if(userService.findAuth(auth)){
             //在session中保存用户身份信息
@@ -35,6 +35,6 @@ public class LoginController {
     public String logout(HttpSession session){
         //删除session
         session.invalidate();
-        return "redirect:/login.action";
+        return "redirect:/login";
     }
 }
