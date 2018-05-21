@@ -1,6 +1,7 @@
 package com.jnshu.service.impl;
 
 import com.jnshu.mapper.AuthDao;
+import com.jnshu.mapper.UserAuthDao;
 import com.jnshu.mapper.UserDao;
 import com.jnshu.model.*;
 import com.jnshu.service.UserService;
@@ -20,13 +21,21 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
     @Autowired
     AuthDao authDao;
+    @Autowired
+    UserAuthDao userAuthDao;
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public List<UserCustom> findUserMore(UserQV userQV) throws Exception {
+        logger.info("传入 userQv: " + userQV.toString());
+        // 复杂查询 每次数据都不同 不能做缓存 当查询不为空时 执行
+        if(userQV.getUser() != null){
+            logger.info("复杂查询开始");
+            return userDao.findUserMore(userQV);
+        }
+
         UserList userList = new UserList();
-        // 查找缓存
         Object object = MemcacheUtils.get("userAll");
         // 当缓存不为空时 直接返回缓存
         if (object != null) {
@@ -99,9 +108,25 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteUser(i);
     }
 
+    /* Session 验证 */
     @Override
     public boolean findAuth(Auth auth) throws Exception {
         // 密码验证的就不做缓存了
         return authDao.findAuth(auth);
+    }
+
+    /* Cookie 验证 */
+    @Override
+    public boolean userAuth(UserAuth userAuth) {
+        return userAuthDao.userAuth(userAuth);
+    }
+    @Override
+    public UserAuth findUserAuthByName(String au_username) {
+        return userAuthDao.findUserAuthbyName(au_username);
+    }
+
+    @Override
+    public Boolean findUserAuthByid(Integer id) {
+        return userAuthDao.findUserAuthByid(id);
     }
 }

@@ -45,7 +45,7 @@
 <script type="text/javascript">
     /* 根据返回值弹出不同信息 */
     function sendBtn(id) {
-        var url = '${pageContext.request.contextPath }/rest/' + id;
+        var url = '${pageContext.request.contextPath }/u/' + id;
         /*得到href的值*/
         $.ajax({
             url: url, /*url也可以是json之类的文件等等*/
@@ -68,9 +68,9 @@
 <div style="text-align: center"><input type="button" value="切换普通版本" onClick="location.href='${pageContext.request.contextPath }/userList.action'" /></div>
 <hr>
 <%-- 登陆模块 --%>
-当前用户:${username }|
-<c:if test="${username!=null }">
-    <a href="${pageContext.request.contextPath }/logout.action">退出</a>
+当前用户:${cookie.username.value }
+<c:if test="${cookie.username.value!=null }">
+    |<a href="${pageContext.request.contextPath }/logout">退出</a>
     <hr>
 </c:if>
 
@@ -81,7 +81,7 @@
     </c:forEach>
 </c:if>
 <%-- 查询模块 --%>
-<form action="${pageContext.request.contextPath}/rest/list" method="get">
+<form action="${pageContext.request.contextPath}/u/list" method="get">
     <fieldset>
         <legend>查询条件</legend>
         <table width="100%"
@@ -146,7 +146,7 @@
 </form>
 
 <%-- 添加模块 --%>
-<form name="usersFrom" action="${pageContext.request.contextPath}/rest/"
+<form name="usersFrom" action="${pageContext.request.contextPath}/u/"
       method="post">
     <%-- REST PUT 添加动作 --%>
     <input type="hidden" name="_method" value="PUT"/>
@@ -229,7 +229,7 @@
                 <td><date:date value="${users.create_time} "/></td>
                 <td><date:date value="${users.create_time} "/></td>
                 <td>
-                    <a href="${pageContext.request.contextPath }/rest/${users.id}">修改</a>
+                    <a href="${pageContext.request.contextPath }/u/${users.id}">修改</a>
                     <a href="" onclick="sendBtn(${users.id})">删除</a>
                 </td>
             </tr>

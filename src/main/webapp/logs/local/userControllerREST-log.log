@@ -1,0 +1,48 @@
+2018-05-21 17:37:43.014 qtp806588571-15 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:40:46.358 qtp806588571-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:41:03.185 qtp806588571-15 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:41:08.821 qtp806588571-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:41:21.699 qtp806588571-19 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=1000, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:41:33.588 qtp806588571-17 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=1000, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:41:55.675 qtp806588571-16 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=1000, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:44:32.804 qtp1916677384-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=1000, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:44:41.989 qtp1916677384-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=1000, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:45:53.320 qtp1916677384-13 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=1000, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:46:05.769 qtp1916677384-18 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:46:42.285 qtp1916677384-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:07.725 qtp1916677384-13 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:11.897 qtp1916677384-16 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:16.104 qtp1916677384-15 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:23.677 qtp1916677384-13 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:25.040 qtp1916677384-18 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:29.666 qtp1916677384-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:34.239 qtp1916677384-18 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:47:36.022 qtp1916677384-15 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:50:49.228 qtp1137180298-17 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 17:51:01.900 qtp1137180298-18 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:54:18.214 qtp1137180298-19 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:54:21.568 qtp1137180298-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:54:31.666 qtp1137180298-18 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:55:45.123 qtp1985362663-19 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:56:59.484 qtp1985362663-13 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:57:15.754 qtp1985362663-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=23, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:57:24.263 qtp1985362663-17 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=23, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:58:01.760 qtp1332104174-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=23, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 17:58:41.026 qtp1332104174-15 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=User{id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}}
+2018-05-21 18:02:28.630 qtp1560244891-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=id=null, username='', qq='null', profession='', join_date=null, school='', online_id='null', daily_url='', declaration='', counselor='', create_time=null, update_time=null}
+2018-05-21 18:03:33.788 qtp783339262-16 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=com.jnshu.model.UserCustom@2eb7ebe7}
+2018-05-21 18:59:51.938 qtp783339262-17 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=com.jnshu.model.UserCustom@4cf488b9}
+2018-05-21 19:01:17.027 qtp1751972013-17 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:02:19.671 qtp1726169577-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:03:13.261 qtp1726169577-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:03:42.655 qtp1726169577-19 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:05:28.273 qtp1726169577-13 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:05:35.112 qtp1726169577-16 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:06:12.757 qtp1726169577-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:06:22.713 qtp1726169577-18 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:08:43.233 qtp1726169577-16 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:08:58.826 qtp1726169577-18  INFO com.jnshu.controller.UserControllerREST:127 - updateSubmit 执行中,userCustom: User{id=41, username='王五', qq='1756513254', profession='UI', join_date=1523923993, school='武汉大学', online_id='3879', daily_url='www.google.com', declaration='1', counselor='加油', create_time=1523923993, update_time=1523923993}
+2018-05-21 19:08:58.888 qtp1726169577-15 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:09:05.914 qtp1726169577-20 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:09:10.506 qtp1726169577-16 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}
+2018-05-21 19:09:14.318 qtp1726169577-14 DEBUG com.jnshu.controller.UserControllerREST:58 - UserQV{user=null, userCustom=null}

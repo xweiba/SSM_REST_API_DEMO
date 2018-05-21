@@ -22,7 +22,7 @@
     </c:forEach>
 </c:if>
 <%-- 获取id 取更新用户信息 --%>
-<form action="${pageContext.request.contextPath }/rest/update/${userCustom.id}" method="post">
+<form action="${pageContext.request.contextPath }/u/update/${userCustom.id}" method="post">
     <%-- REST POST更新动作 --%>
     <input type="hidden" name="_method" value="POST"/>
     <fieldset>

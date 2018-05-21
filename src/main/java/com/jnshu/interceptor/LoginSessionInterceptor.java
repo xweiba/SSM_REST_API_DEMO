@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /* 登陆拦截器 */
-public class LoginInterceptor implements HandlerInterceptor {
+public class LoginSessionInterceptor implements HandlerInterceptor {
     //日志
     private static Logger logger = LoggerFactory.getLogger(HandlerInterceptor.class);
 

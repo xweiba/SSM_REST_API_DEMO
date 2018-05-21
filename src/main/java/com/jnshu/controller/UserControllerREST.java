@@ -32,7 +32,7 @@ import java.util.List;
 //注入Controller
 @Controller
 //REST根url
-@RequestMapping("/rest")
+@RequestMapping("/u")
 public class UserControllerREST {
 
     //日志对象
@@ -42,11 +42,11 @@ public class UserControllerREST {
     @Autowired
     private UserService userService;
 
-    //首页跳转到综合页面,这是访问 /rest/ 的
+/*    //首页跳转到综合页面,这是访问 /rest/ 的
     @RequestMapping("/")
     public String test() {
-        return "redirect:/rest/list";
-    }
+        return "redirect:/u/list";
+    }*/
 
     /*  web 版本 可以只使用api, 跳转使用前端 Sprict */
 
@@ -90,12 +90,12 @@ public class UserControllerREST {
             //jsp 头部添加 <%@ page isErrorPage="true" %> */
 
             //出错之后要跳转的页面
-            return "forward:/rest/list";
+            return "forward:/u/list";
         }
         userService.insertUser(userCustom);
         //forward 数据也无法转发 =.= 还是不要了
         //model.addAttribute("findUserCustom", userCustom);
-        return "redirect:/rest/list/";
+        return "redirect:/u/list/";
     }
 
     //删除
@@ -142,10 +142,10 @@ public class UserControllerREST {
             //解决方法:
             //jsp 头部添加 <%@ page isErrorPage="true" %> */
             //出错之后要跳转的页面
-            return "forward:/rest/" + id;
+            return "forward:/u/" + id;
         }
         userService.updateUser(userCustom, id);
-        return "redirect:/rest/list";
+        return "redirect:/u/list";
     }
 
 
