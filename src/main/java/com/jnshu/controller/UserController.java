@@ -44,12 +44,12 @@ public class UserController {
     //综合页面
     @RequestMapping("/userList.action")
     public String UserList(Model model, UserQV userQV) throws Exception {
-        if (userQV != null) {
+        /*if (userQV != null) {
             logger.debug("userQV.getUserCustom(): " + userQV.getUserCustom());
             logger.debug("userQV.getUser(): " + userQV.getUser());
             logger.info("LogInfo 测试");
             logger.warn("Warn 测试");
-        }
+        }*/
         List<UserCustom> userList = userService.findUserMore(userQV);
         //数据回显
         model.addAttribute("findUserCustom", userQV.getUserCustom());
@@ -67,7 +67,7 @@ public class UserController {
             //抛出异常信息
             throw new UserException("修改的用户id不存在!");
         }
-        logger.debug("userCustom.toString(): " + userCustom.toString());
+        // logger.debug("userCustom.toString(): " + userCustom.toString());
 
         model.addAttribute("userCustom", userCustom);
         return "userEdit";
@@ -91,11 +91,11 @@ public class UserController {
             //出错之后要跳转的页面
             return "forward:userEdit.action";
         }
-        logger.debug("提交信息: " + userCustom);
+        // logger.debug("提交信息: " + userCustom);
         /*userService.updateUser(userCustom, id);
         return "redirect:/userList.action";*/
         if (userService.updateUser(userCustom, id)) {
-            logger.info("更新成功: " + userCustom.toString());
+            // logger.info("更新成功: " + userCustom.toString());
             // 插入成功返回列表页面并显示插入用户
             // model.addAttribute("findUserCustom",userCustom);
             return "redirect:userList.action";
@@ -130,7 +130,7 @@ public class UserController {
     /* 删除用户 */
     @RequestMapping("/userDelete.action")
     public String userDelete(Model model, Integer id) throws Exception {
-        logger.debug("删除id: " + id);
+        // logger.debug("删除id: " + id);
         if (id > 0) {
             userService.deleteUser(id);
             return "redirect:userList.action";
