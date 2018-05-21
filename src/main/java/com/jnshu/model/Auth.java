@@ -1,5 +1,5 @@
 package com.jnshu.model;
-
+/* session登陆验证 已废弃 */
 /* 登陆 */
 public class Auth {
     //登陆用户名

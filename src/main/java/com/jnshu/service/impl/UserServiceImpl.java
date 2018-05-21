@@ -1,12 +1,8 @@
 package com.jnshu.service.impl;
 
-import com.jnshu.controller.LoginController;
 import com.jnshu.mapper.AuthDao;
 import com.jnshu.mapper.UserDao;
-import com.jnshu.model.Auth;
-import com.jnshu.model.User;
-import com.jnshu.model.UserCustom;
-import com.jnshu.model.UserQV;
+import com.jnshu.model.*;
 import com.jnshu.service.UserService;
 import com.jnshu.tools.MemcacheUtils;
 
@@ -29,25 +25,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserCustom> findUserMore(UserQV userQV) throws Exception {
+        UserList userList = new UserList();
         // 查找缓存
-        Object object = MemcacheUtils.get("userALl");
+        Object object = MemcacheUtils.get("userAll");
         // 当缓存不为空时 直接返回缓存
         if (object != null) {
             logger.debug("userALl 缓存输出 ");
+            userList = (UserList) object;
             // 直接返回缓存
-            return (List<UserCustom>) object;
+            return userList.getUserList();
         }
         List<UserCustom> userCustomList = userDao.findUserMore(userQV);
+        // UserList userList = new UserList();
+        userList.setUserList(userCustomList);
         // 当缓存为空时 添加 memcached 缓存
         logger.debug("userALl 设置缓存");
-        MemcacheUtils.set("userAll", userCustomList.toArray());
+        MemcacheUtils.set("userAll", userList);
         return userCustomList;
     }
 
     @Override
     public UserCustom findUserById(Integer id) throws Exception {
         // 查找缓存
+        logger.debug("查询缓存中");
         Object object = MemcacheUtils.get("user" + id);
+        logger.debug("缓存查询完成");
         // 当存在缓存时直接返回缓存数据
         if (object != null) {
             return (UserCustom) object;
@@ -63,7 +65,11 @@ public class UserServiceImpl implements UserService {
         //插入成功后返回的值存入了user的id中
         userDao.insertUser(user);
         // 写入缓存 这里使用add 当 key(id)存在时, 不写入缓存
-        MemcacheUtils.add("user" + user.getId(), user);
+        Boolean flag = MemcacheUtils.add("user" + user.getId(), user);
+        // 操作数据后 删除 查询所有信息 的缓存
+        if(flag){
+            MemcacheUtils.delete("userAll");
+        }
         //所以返回user的id值
         return user.getId();
     }
@@ -72,14 +78,24 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(UserCustom userCustom, Integer id) throws Exception {
         userCustom.setId(id);
         // 写入缓存 这里使用replace, 当key(id)不存在时, 不写入缓存
-        MemcacheUtils.replace("user" + id, userCustom);
+        Boolean flag = MemcacheUtils.replace("user" + id, userCustom);
+        // 操作数据后 删除 查询所有信息 的缓存
+        if(flag){
+            logger.info("userAll is delete");
+            MemcacheUtils.delete("userAll");
+        }
         return userDao.updateUser(userCustom);
     }
 
     @Override
     public boolean deleteUser(Integer i) throws Exception {
         // 删除缓存
-        MemcacheUtils.delete(String.valueOf(i));
+        Boolean flag = MemcacheUtils.delete(String.valueOf(i));
+        // 操作数据后 删除 查询所有信息 的缓存
+        if(flag){
+            logger.info("userAll is delete");
+            MemcacheUtils.delete("userAll");
+        }
         return userDao.deleteUser(i);
     }
 
