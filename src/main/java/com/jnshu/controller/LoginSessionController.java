@@ -8,19 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSession;
-/* session登陆验证 已废弃 */
+
 /* 认证Controller */
 @Controller
-public class LoginController {
+public class LoginSessionController {
     //日志
-    private static Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private static Logger logger = LoggerFactory.getLogger(LoginSessionController.class);
     @Autowired
     UserService userService;
     //登陆 会影响api
-    @RequestMapping("/login")
+    @RequestMapping("/login.action")
     public String login(HttpSession session, Auth auth) throws Exception {
         if(userService.findAuth(auth)){
             //在session中保存用户身份信息
@@ -31,10 +29,10 @@ public class LoginController {
     }
 
     //退出登陆
-    @RequestMapping("logout")
+    @RequestMapping("/logout.action")
     public String logout(HttpSession session){
         //删除session
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/login.action";
     }
 }
