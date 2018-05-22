@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -29,9 +30,20 @@
 <div style="text-align: center"><input type="button" value="切换REST版本" onClick="location.href='${pageContext.request.contextPath }/u/list/'" /></div>
 <hr>
 <%-- 登陆模块 --%>
-当前用户:${username }|
-<c:if test="${username!=null }">
-    <a href="${pageContext.request.contextPath }/logout.action">退出</a>
+<c:if test="${cookie.username.value!=null }">
+    当前用户:<%!String username = "not user"; %>
+    <%
+        Cookie[] cookies = request.getCookies();
+        for(int i = 0 ; i < cookies.length ; i++){
+            if(cookies[i].getName().equals("username")){
+                username = cookies[i].getValue();
+                break;
+            }
+        }
+    %>
+    <%=URLDecoder.decode(username) %>
+
+    |<a href="${pageContext.request.contextPath }/logout">退出</a>
     <hr>
 </c:if>
 

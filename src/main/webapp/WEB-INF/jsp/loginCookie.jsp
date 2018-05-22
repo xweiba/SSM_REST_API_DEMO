@@ -1,4 +1,5 @@
-<%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.net.URLDecoder" %><%--
   Created by IntelliJ IDEA.
   User: zhou
   Date: 2018/5/14
@@ -18,6 +19,22 @@
           rel='stylesheet' type='text/css'>
     <!--//webfonts-->
 </head>
+
+<%-- 登陆模块 --%>
+<c:if test="${cookie.username.value!=null }">
+    <%!String username = "not user"; %>
+    <%
+        Cookie[] cookies = request.getCookies();
+        for(int i = 0 ; i < cookies.length ; i++){
+            if(cookies[i].getName().equals("username")){
+                username = cookies[i].getValue();
+                break;
+            }
+        }
+    %>
+
+</c:if>
+
 <!-----start-main---->
 <div class="main">
     <div class="login-form">
@@ -27,11 +44,11 @@
                  alt=""/>
         </div>
         <form action="${pageContext.request.contextPath }/login/validate" method="post">
-            <input type="text" name="au_username" value="${cookie.username.value}"
+            <input type="text" name="au_username" value="<%=URLDecoder.decode(username) %>"
             <%-- 光标选中 如果是默认字符串 不显示内容 --%>
-                   onfocus="if (this.value == '${cookie.username.value}') {this.value = '';}"
+                   onfocus="if (this.value == '<%=URLDecoder.decode(username) %>') {this.value = '';}"
             <%-- 失去焦点 value为空 显示内容 --%>
-                   onblur="if (this.value == '') {this.value = '${cookie.username.value}';}">
+                   onblur="if (this.value == '') {this.value = '<%=URLDecoder.decode(username) %>';}">
             <input type="password" value="Password" name="au_password"
                    onfocus="if (this.value == 'Password') {this.value = '';}"
                    onblur="if (this.value == '') {this.value = 'Password';}">
