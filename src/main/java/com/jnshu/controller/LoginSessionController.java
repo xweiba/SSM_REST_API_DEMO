@@ -18,19 +18,19 @@ public class LoginSessionController {
     private static Logger logger = LoggerFactory.getLogger(LoginSessionController.class);
     @Autowired
     UserService userService;
-    //登陆 会影响api
+    //登陆
     @RequestMapping("/login.action")
     public String login(HttpSession session, Auth auth) throws Exception {
         if(userService.findAuth(auth)){
 
-            //在session中保存用户身份信息
+            // 在session中保存用户身份信息
             session.setAttribute("username", auth.getUsername());
             logger.info("session.getId():" + session.getId());
-            // 将对象序列化入缓存
+            // 存入缓存 用作效验
             MemcacheUtils.set(session.getId(), auth.getUsername());
         }
-        //重定向到用户信息页面
-        return "redirect:/s/userList.action";
+        //redirect 重定向到用户信息页面,会导致session内容丢失. 这里先forward保存session
+        return "forward:/s/succed.action";
     }
 
     //退出登陆

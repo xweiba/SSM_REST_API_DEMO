@@ -38,10 +38,10 @@ public class UserController {
     @Autowired
     private UserService userService;
     //首页跳转到综合页面 这是被 springmvc_rest 拦截处理的
-    /*@RequestMapping("/")
+    @RequestMapping("/succed.action")
     public String test() {
-        return "redirect:/rest/list";
-    }*/
+        return "redirect:/s/userList.action";
+    }
     //综合页面
     @RequestMapping("/userList.action")
     public String UserList(Model model, UserQV userQV) throws Exception {

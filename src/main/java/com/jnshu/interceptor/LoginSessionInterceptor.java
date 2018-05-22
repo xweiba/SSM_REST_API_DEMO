@@ -43,13 +43,13 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        //判断session
+        // 获取 session
         HttpSession session = httpServletRequest.getSession();
-        //从session中取出用户信息
+        // 从session中取出用户信息
         String username = (String)session.getAttribute("username");
         logger.debug("尝试登陆用户: " + username + "session_id:" + session.getId());
 
-
+        // 登陆数据效验
         if(username !="" &&username!=null){
             String sessionName = (String) MemcacheUtils.get(session.getId());
             logger.info("登陆用户名: " + username +  ", sessionName:" + sessionName + ", session.getId():" + session.getId());
@@ -59,7 +59,6 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        String test = "密码错误";
         //执行到这里标识用户身份需要认证,跳转到登陆界面
         //跳转网址需要绝对路径,将当前请求重新映射到/WEB-INF/jsp/login.jsp,
         // WEB-INF/jsp/login.jsp访问的是原地址+WEB-INF/jsp/login.jsp
