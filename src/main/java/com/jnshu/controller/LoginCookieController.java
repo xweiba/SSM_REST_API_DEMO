@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 
 /**
  * @program: taskTwo
@@ -73,7 +74,7 @@ public class LoginCookieController {
             logger.info("新生成的Cookie-效时间-值: " + cookie.getName() + "-->" + cookie.getMaxAge() + "-->" + cookie.getValue() + cookie.getPath());
 
             // 将用户信息通过Cookie回传
-            Cookie cookie1 = new Cookie("username",java.net.URLEncoder.encode(userAuth.getAu_username(),"utf-8"));
+            Cookie cookie1 = new Cookie("username", URLEncoder.encode(userAuth.getAu_username(),"UTF-8"));
             cookie1.setMaxAge(60*60*24*7);
             cookie1.setPath("/");
             httpServletResponse.addCookie(cookie);

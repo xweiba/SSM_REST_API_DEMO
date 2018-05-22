@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.net.URLDecoder" %><%--
   Created by IntelliJ IDEA.
   User: zhou
   Date: 2018/4/28
@@ -65,11 +65,22 @@
 <body>
 
 <%-- 版本切换 --%>
-<div style="text-align: center"><input type="button" value="切换普通版本" onClick="location.href='${pageContext.request.contextPath }/userList.action'" /></div>
+<div style="text-align: center"><input type="button" value="切换普通版本" onClick="location.href='${pageContext.request.contextPath }/s/userList.action'" /></div>
 <hr>
 <%-- 登陆模块 --%>
-当前用户:${cookie.username.value }
 <c:if test="${cookie.username.value!=null }">
+    当前用户:<%!String username = "not user"; %>
+    <%
+        Cookie[] cookies = request.getCookies();
+        for(int i = 0 ; i < cookies.length ; i++){
+            if(cookies[i].getName().equals("username")){
+                username = cookies[i].getValue();
+                break;
+            }
+        }
+    %>
+    <%=URLDecoder.decode(username) %>
+
     |<a href="${pageContext.request.contextPath }/logout">退出</a>
     <hr>
 </c:if>
