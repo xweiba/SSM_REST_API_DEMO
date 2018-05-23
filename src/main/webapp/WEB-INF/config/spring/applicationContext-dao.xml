@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- 导入数据库配置 -->
     <context:property-placeholder
-            location="WEB-INF/config/other/db.properties"/>
+            location="WEB-INF/config/other/db.properties" ignore-unresolvable="true"/>
 
     <!-- 数据源 使用dbcp 使用完毕后自动关闭 destroy-method="close"  -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
