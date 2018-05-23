@@ -5,6 +5,7 @@ import com.jnshu.model.User;
 import com.jnshu.model.UserCustom;
 import com.jnshu.model.UserQV;
 import com.jnshu.service.UserService;
+import com.jnshu.tools.MemcacheUtils;
 import com.jnshu.validation.ValidationInsert;
 import com.jnshu.validation.ValidationUpdate;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /* 普通风格 */
@@ -37,14 +39,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    //首页跳转到综合页面 这是被 springmvc_rest 拦截处理的
-    @RequestMapping("/succed.action")
-    public String test() {
-        return "redirect:/s/userList.action";
-    }
+
     //综合页面
     @RequestMapping("/userList.action")
-    public String UserList(Model model, UserQV userQV) throws Exception {
+    public String UserList(Model model, UserQV userQV, HttpSession httpSession) throws Exception {
         /*if (userQV != null) {
             logger.debug("userQV.getUserCustom(): " + userQV.getUserCustom());
             logger.debug("userQV.getUser(): " + userQV.getUser());
@@ -55,6 +53,7 @@ public class UserController {
         //数据回显
         model.addAttribute("findUserCustom", userQV.getUserCustom());
         model.addAttribute("userList", userList);
+        logger.info(" memcached 到达主页时 : " + (String) MemcacheUtils.get(httpSession.getId()));
         return "userList";
     }
 
