@@ -13,7 +13,7 @@
     <!-- validator 效验器-->
     <!--<mvc:annotation-driven
                            validator="validator"/>-->
-    <mvc:annotation-driven conversion-service="conversionService"
+    <mvc:annotation-driven conversion-service="conversionServiceCustom"
                            validator="validator"/>
 
     <!-- 校验器 -->
@@ -45,7 +45,7 @@
     <!-- 效验器end-->
 
     <!--自定义Spring参数绑定-->
-    <bean id="conversionService"
+    <bean id="conversionServiceCustom"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <!-- 转换器 -->
         <property name="converters">
@@ -63,7 +63,7 @@
     </bean>
 
     <!-- 静态资源 -->
-    <!-- 当做了spring自定义类型转换时他会将所有的请求都尝试转换,转换该静态资源时无法完成转换会抛出一个debug异常,不影响静态资源的访问.-->
+    <!-- 当做了spring自定义类型转换时他会将所有的请求都尝试转换,转换该静态资源时无法完成转换会抛出一个debug异常,不影响静态资源的访问. 原因是静态资源隐式注入了一个bean id conversionService, 与Spring自定义转换冲突. 更改自定义转换的bean id更改一下即可 -->
     <mvc:resources location="/WEB-INF/static/" mapping="/static/**"/>
     <!-- 静态资源end-->
     <!-- 使用默认servlet来处理未注入的handler url-->
