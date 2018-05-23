@@ -31,4 +31,8 @@ public interface UserService {
 
     // 通过id查找账号信息
     Boolean findUserAuthByid(Integer id);
+
+    // redis测试接口
+    void addRedis(UserCustom userCustom) throws Exception;
+    UserCustom getRedis(String key) throws Exception;
 }

@@ -10,6 +10,8 @@ import com.jnshu.tools.MemcacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -128,5 +130,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean findUserAuthByid(Integer id) {
         return userAuthDao.findUserAuthByid(id);
+    }
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+    @Override
+    public void addRedis(UserCustom userCustom) throws Exception {
+        ValueOperations<String, UserCustom> valueOperations = redisTemplate.opsForValue();
+        valueOperations.set(String.valueOf(userCustom.getId()), userCustom);
+    }
+
+    @Override
+    public UserCustom getRedis(String key) throws Exception {
+        ValueOperations<String, UserCustom> valueOperations = redisTemplate.opsForValue();
+        UserCustom userCustom = valueOperations.get(key);
+        return userCustom;
     }
 }
