@@ -4,6 +4,7 @@ import com.jnshu.model.UserAuth;
 import com.jnshu.service.UserService;
 import com.jnshu.tools.DESUtil;
 import com.jnshu.tools.MD5Util;
+import com.jnshu.tools.MemcacheUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,32 +18,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
 
 /**
  * @program: taskTwo
- * @description: Cookie方式登陆验证
+ * @description: 登陆验证Controller 基于Cookie及Session
  * @author: Mr.xweiba
- * @create: 2018-05-21 15:53
+ * @create: 2018-05-24 23:26
  **/
 @Controller
-public class LoginCookieController {
+public class LoginController {
     @Qualifier("userServiceMemcacheImpl")
     @Autowired()
     UserService userService;
+    @Autowired
+    MemcacheUtils memcacheUtils;
 
     private static Logger logger = LoggerFactory.getLogger(LoginCookieController.class);
 
     // 跳转到登陆页面
-    @RequestMapping(value = "/loginCookie", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(){
         return "loginCookie";
     }
 
     // 账号密码验证
-    @RequestMapping(value = "/login/validateCookie", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/validate", method = RequestMethod.POST)
     public String valiDate(UserAuth userAuth,
-                         HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model) throws Exception {
+                           HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model) throws Exception {
         logger.info("加密前登陆的信息: " + userAuth.toString());
         // 将密码通过md5加密
         String passwordMd5 = MD5Util.stringToMD5(userAuth.getAu_password());
@@ -83,14 +87,23 @@ public class LoginCookieController {
             httpServletResponse.addCookie(cookie1);
            /* // 注意 Cookie 跨域的问题!!!!!!!!!!! sendRedirect后跨域的Cookie是不会保存的
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/u/list");*/
-           return "redirect:/u/list";
+
+            // 在session中保存用户身份信息
+            HttpSession session = httpServletRequest.getSession();
+            session.setAttribute("username", userAuth.getAu_username());
+            logger.info("session.getId():" + session.getId());
+            // 存入缓存 用作效验
+            memcacheUtils.set(session.getId(), userAuth.getAu_username());
+            logger.info("memcached 验证账号时 : " + (String) memcacheUtils.get(session.getId()));
+
+            return "redirect:/u/list";
         }else {
             httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
             return "loginCookie";
         }
     }
 
-    @RequestMapping(value = "/logoutCookie", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
         Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null){
@@ -103,6 +116,10 @@ public class LoginCookieController {
                 }
             }
         }
+        // 删除Session 缓存
+        memcacheUtils.delete(httpServletRequest.getSession().getId());
+        // 删除session
+        httpServletRequest.getSession().invalidate();
         return "redirect:/login";
     }
 }

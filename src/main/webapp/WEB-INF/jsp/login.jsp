@@ -15,7 +15,7 @@ tomcat_2<br/>
 SessionID:<%session.setAttribute("liuhuan.ml","liuhuan.ml");%><%=session.getId() %><br/>
 Createdon:<%=session.getCreationTime() %>
 
-<form style="text-align: center" action="${pageContext.request.contextPath }/validate.action" method="post">
+<form style="text-align: center" action="${pageContext.request.contextPath }/login/validate.action" method="post">
     用户账号:<input type="text" name="username"/><br/>
     用户密码:<input type="password" name="password"/><br/>
     <input type="submit" value="登录"/>

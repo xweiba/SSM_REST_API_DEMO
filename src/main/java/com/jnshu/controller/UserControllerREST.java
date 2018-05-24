@@ -9,6 +9,7 @@ import com.jnshu.validation.ValidationUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +40,7 @@ public class UserControllerREST {
     private static Logger logger = LoggerFactory.getLogger(UserControllerREST.class);
 
     //自动装载Service对象
+    @Qualifier("userServiceRedisImpl")
     @Autowired
     private UserService userService;
 
@@ -298,7 +300,4 @@ key/value 请求
         if (Errors != null) return Errors;
         return id + "的更新状态: " + userService.updateUser(userCustom, id);
     }
-
-
-
 }

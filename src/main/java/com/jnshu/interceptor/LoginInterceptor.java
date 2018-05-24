@@ -1,7 +1,9 @@
 package com.jnshu.interceptor;
 
+import com.jnshu.controller.LoginCookieController;
 import com.jnshu.service.UserService;
 import com.jnshu.tools.DESUtil;
+import com.jnshu.tools.MemcacheUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,29 +15,26 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @program: taskTwo
- * @description: 登陆拦截器 Cookie方式
+ * @description: 登陆拦截器 Cookie配合Session
  * @author: Mr.xweiba
- * @create: 2018-05-21 16:03
+ * @create: 2018-05-24 23:16
  **/
 
-public class LoginCookieInterceptor implements HandlerInterceptor {
+public class LoginInterceptor implements HandlerInterceptor {
     @Qualifier("userServiceMemcacheImpl")
     @Autowired
     UserService userService;
+    @Autowired
+    MemcacheUtils memcacheUtils;
 
     //计算时间
     private Long timer = Long.valueOf(0);
 
     private static Logger logger = LoggerFactory.getLogger(LoginCookieInterceptor.class);
-
-
-
-
-
-
 
     //执行Handler方法之前执行
     //用于身份认证、身份授权
@@ -44,8 +43,14 @@ public class LoginCookieInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         //handler 开始时间
         this.timer = System.currentTimeMillis();
+        HttpSession session = httpServletRequest.getSession();
+        // 同一用户只有一个随机session, 判断 session 是否生效, 减少Cookie解密开销
+        if(memcacheUtils.get(session.getId())!=null){
+            logger.debug("Session 验证通过");
+            return true;
+        }
 
-        // 判断Cookie
+        // session无法找到验证Cookie
         Cookie[] cookies = httpServletRequest.getCookies();
         logger.info("Cookie长度为: " + cookies.length);
         logger.info("拦截器获取到的Cookie: " + String.valueOf(cookies));
@@ -65,7 +70,15 @@ public class LoginCookieInterceptor implements HandlerInterceptor {
                     // 分割字符串 获取id
                     Integer id = Integer.valueOf(token.split("=")[0]);
                     logger.info("id为: " + id);
+
                     if(userService.findUserAuthByid(id)){
+                        // 登陆成功 重新设置Session缓存
+                        // 在session中保存用户身份信息
+                        // 这里偷 直接拿值不遍历了 实际项目也不会用session存储信息了
+                        session.setAttribute("username", cookies[0].getValue());
+                        logger.info("session.getId():" + session.getId());
+                        // 存入缓存 用作效验
+                        memcacheUtils.set(session.getId(), cookies[0].getValue());
                         return true;
                     }
                 }

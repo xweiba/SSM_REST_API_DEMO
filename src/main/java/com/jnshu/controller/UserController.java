@@ -11,6 +11,7 @@ import com.jnshu.validation.ValidationUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,11 +33,11 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value = "/s")
+@RequestMapping(value = "/u")
 public class UserController {
     //设置本类的log
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
-
+    @Qualifier("userServiceMemcacheImpl")
     @Autowired
     private UserService userService;
     @Autowired
@@ -91,25 +92,25 @@ public class UserController {
             //数据回显
             model.addAttribute("userCustom", userCustom);
             //出错之后要跳转的页面
-            return "forward:/s/userEdit.action";
+            return "forward:/u/userEdit.action";
         }
         // logger.debug("提交信息: " + userCustom);
-        /*userService.updateUser(userCustom, id);
+        /*redisUtils.updateUser(userCustom, id);
         return "redirect:/userList.action";*/
         if (userService.updateUser(userCustom, id)) {
             // logger.info("更新成功: " + userCustom.toString());
             // 插入成功返回列表页面并显示插入用户
             // model.addAttribute("findUserCustom",userCustom);
-            return "redirect:/s/userList.action";
+            return "redirect:/u/userList.action";
         }
         //插入失败跳回编辑页面将数据回显
         logger.error("更新失败");
-        return "forward:/s/userEdit.action";
+        return "forward:/u/userEdit.action";
     }
 
     /* 添加用户 */
     @RequestMapping("/userAdd.action")
-    public String userAdd(Model model, @Validated(value = {ValidationInsert.class}) User user, BindingResult bindingResult) throws Exception {
+    public String userAdd(Model model, @Validated(value = {ValidationInsert.class}) UserCustom userCustom, BindingResult bindingResult) throws Exception {
         /* 效验输入信息 */
         if (bindingResult.hasErrors()) {
             //输出错误信息
@@ -121,12 +122,12 @@ public class UserController {
             //将错误传到页面
             model.addAttribute("allErrors", allErrors);
             //数据回显
-            model.addAttribute("userEcho", user);
+            model.addAttribute("userEcho", userCustom);
             //出错之后要跳转的页面
-            return "forward:/s/userList.action";
+            return "forward:/u/userList.action";
         }
-        userService.insertUser(user);
-        return "redirect:/s/userList.action";
+        userService.insertUser(userCustom);
+        return "redirect:/u/userList.action";
     }
 
     /* 删除用户 */
@@ -135,11 +136,11 @@ public class UserController {
         // logger.debug("删除id: " + id);
         if (id > 0) {
             userService.deleteUser(id);
-            return "redirect:/s/userList.action";
+            return "redirect:/u/userList.action";
         } else {
             String allErrors = "id必须大于0";
             model.addAttribute("allErrors", allErrors);
-            return "forward:/s/userList.action";
+            return "forward:/u/userList.action";
         }
     }
 }

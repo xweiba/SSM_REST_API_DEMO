@@ -6,10 +6,14 @@ import com.jnshu.tools.MemcacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /* 认证Controller */
@@ -17,6 +21,7 @@ import javax.servlet.http.HttpSession;
 public class LoginSessionController {
     //日志
     private static Logger logger = LoggerFactory.getLogger(LoginSessionController.class);
+    @Qualifier("userServiceMemcacheImpl")
     @Autowired
     UserService userService;
     @Autowired
@@ -52,12 +57,25 @@ public class LoginSessionController {
 
     //退出登陆
     @RequestMapping("/logout.action")
-    public String logout(HttpSession session){
+    public String logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+        HttpSession session = httpServletRequest.getSession();
         logger.info(" memcached 删除时 : " + (String) memcacheUtils.get(session.getId()));
         // 删除缓存
         memcacheUtils.delete(session.getId());
         //删除session
         session.invalidate();
+
+        Cookie[] cookies = httpServletRequest.getCookies();
+        if (cookies != null){
+            for (Cookie c : cookies) {
+                if (c.getName().equals("token")){
+                    // cookie有效时间为0 即失效
+                    c.setMaxAge(0);
+                    httpServletResponse.addCookie(c);
+                    return "redirect:/login";
+                }
+            }
+        }
         return "redirect:/login.action";
     }
 }

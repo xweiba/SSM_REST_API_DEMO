@@ -12,7 +12,7 @@ public interface UserService {
     UserCustom findUserById(Integer id) throws Exception;
 
     /* 返回影响行数 0即代表false true 非 0 */
-    int insertUser(User user) throws Exception;
+    int insertUser(UserCustom userCustom) throws Exception;
 
     /* 返回影响行数 0即代表false true 非 0 */
     boolean deleteUser(Integer i) throws Exception;
@@ -31,9 +31,4 @@ public interface UserService {
 
     // 通过id查找账号信息
     Boolean findUserAuthByid(Integer id);
-
-    // redis测试接口
-    void addRedis(UserCustom userCustom) throws Exception;
-    UserCustom getRedis(String key) throws Exception;
-    void delRedis(String key) throws Exception;
 }

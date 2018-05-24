@@ -1,5 +1,7 @@
 package com.jnshu.tools;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -11,7 +13,7 @@ import redis.clients.jedis.Jedis;
 
 public class RedisClient {
     public static void main(String[] args) {
-        // 连接Redis
+        /*// 连接Redis
         Jedis jedis = new Jedis("localhost");
         System.out.println("连接成功");
         //查看服务是否运行
@@ -22,6 +24,13 @@ public class RedisClient {
             jedis.set(String.valueOf(i), String.valueOf(i));
         }
         Long s = (System.currentTimeMillis()-times)/1000;
-        System.out.println("插入10w条数据:" + s);
+        System.out.println("插入10w条数据:" + s);*/
+
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext-redis.xml");
+        RedisUtils redisUtil=(RedisUtils) applicationContext.getBean("redisUtils");
+
+        redisUtil.set("name", "大哥");
+        System.out.println(redisUtil.get("name"));
+
     }
 }
