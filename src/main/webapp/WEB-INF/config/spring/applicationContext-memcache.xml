@@ -55,4 +55,7 @@
             <value>memCachedPool</value>
         </constructor-arg>
     </bean>
+    <bean id="memCacheUtils" class="com.jnshu.tools.MemcacheUtils">
+        <property name="memCachedClient" ref="memCachedClient"/>
+    </bean>
 </beans>
