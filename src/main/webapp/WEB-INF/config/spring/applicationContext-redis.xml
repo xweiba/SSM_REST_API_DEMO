@@ -6,7 +6,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 导入数据库配置 -->
-    <context:property-placeholder location="WEB-INF/config/other/redis.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder
+            location="WEB-INF/config/other/redis.properties"
+            ignore-unresolvable="true"/>
 
     <!-- 注入连接池配置 -->
     <bean id="redisConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -19,19 +21,37 @@
     </bean>
 
     <!--创建会话工厂-->
-    <bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:hostName="${redis.host}" p:password="${redis.pass}" p:port="${redis.port}" p:poolConfig-ref="redisConfig" />
+    <bean id="redisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="${redis.host}" p:password="${redis.pass}"
+          p:port="${redis.port}" p:poolConfig-ref="redisConfig"/>
 
     <!--创建连接-->
-    <bean id="redisTemplete" class="org.springframework.data.redis.core.StringRedisTemplate">
+    <bean id="redisTemplete"
+          class="org.springframework.data.redis.core.StringRedisTemplate">
         <!-- 通过工厂创建redis连接-->
         <property name="connectionFactory" ref="redisConnectionFactory"/>
 
         <!-- 将键值序列化 如果不配置Serializer，那么存储的时候智能使用String，如果用User类型存储，那么会提示错误User can't cast to String -->
+        <!-- key 使用StringRedisSerializer 序列化-->
         <property name="keySerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
         </property>
+        <!-- value 使用JdkSerializationRedisSerializer 序列化-->
         <property name="valueSerializer">
             <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
         </property>
+
+        <!-- hash 操作 -->
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
+    <!-- 注入工具类 -->
+    <bean id="redisUtils" class="com.jnshu.tools.RedisUtils">
+        <property name="redisTemplate" ref="redisTemplete"/>
     </bean>
 </beans>

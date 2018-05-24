@@ -35,4 +35,5 @@ public interface UserService {
     // redis测试接口
     void addRedis(UserCustom userCustom) throws Exception;
     UserCustom getRedis(String key) throws Exception;
+    void delRedis(String key) throws Exception;
 }

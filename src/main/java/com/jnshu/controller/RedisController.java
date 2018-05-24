@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import redis.clients.jedis.Jedis;
 
 /**
  * @program: taskTwo
@@ -20,10 +21,18 @@ public class RedisController {
     @Autowired
     UserService userService;
 
+    // 原生接口性能测试
+    @RequestMapping(value = "/gety", method = RequestMethod.GET)
+    @ResponseBody
+    public String getyRedis() throws Exception {
+        Jedis jedis = new Jedis("localhost");
+        return jedis.get("user1");
+    }
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
     public UserCustom getRedis() throws Exception {
-        return userService.getRedis("1");
+        return userService.getRedis("user1");
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -33,5 +42,11 @@ public class RedisController {
         userCustom.setId(1);
         userCustom.setUsername("liuhaun");
         userService.addRedis(userCustom);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public void deleteRedis(String key) throws Exception {
+        userService.delRedis(key);
     }
 }
