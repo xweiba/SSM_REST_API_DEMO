@@ -3,6 +3,7 @@ package com.jnshu.interceptor;
 import com.jnshu.tools.MemcacheUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +18,9 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
     //日志
     private static Logger logger = LoggerFactory.getLogger(HandlerInterceptor.class);
 
+    @Autowired
+    MemcacheUtils memcacheUtils;
+    
     //Controller执行的全过程都在这里,可以用作执行时间日志
     //计算时间
     private Long timer = Long.valueOf(0);
@@ -42,16 +46,18 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
             return true;
         }
 
+
+
         // 获取 session
         HttpSession session = httpServletRequest.getSession();
         // 从session中取出用户信息
         String username = (String)session.getAttribute("username");
         logger.debug("尝试登陆用户: " + username + "session_id:" + session.getId());
-        logger.info(" memcached 拦截器确认时 : " + (String) MemcacheUtils.get(session.getId()));
+        logger.info(" memcached 拦截器确认时 : " + (String) memcacheUtils.get(session.getId()));
 
         // 登陆数据效验
         if(username !="" &&username!=null){
-            String sessionName = (String) MemcacheUtils.get(session.getId());
+            String sessionName = (String) memcacheUtils.get(session.getId());
             logger.info("登陆用户名: " + username +  ", sessionName:" + sessionName + ", session.getId():" + session.getId());
             if(username.equals(sessionName)){
                 //身份存在 放行
@@ -77,7 +83,7 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         logger.info("LoginInterceptor postHandle 拦截器执行了,进入Handler方法之后，返回modelAndView之前执行");
-        logger.info(" memcached 拦截器确认时 : " + (String) MemcacheUtils.get(httpServletRequest.getSession().getId()));
+        logger.info(" memcached 拦截器确认时 : " + (String) memcacheUtils.get(httpServletRequest.getSession().getId()));
     }
 
     //执行Handler完成执行此方法
@@ -87,7 +93,7 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
         //执行完毕时间
         this.timer = System.currentTimeMillis() - this.timer;
         logger.info("HandlerInterceptor1 afterCompletion 拦截器执行了,Handler运行完成后执行此方法");
-        logger.info(" memcached 拦截器确认时 : " + (String) MemcacheUtils.get(httpServletRequest.getSession().getId()));
+        logger.info(" memcached 拦截器确认时 : " + (String) memcacheUtils.get(httpServletRequest.getSession().getId()));
         logger.debug("性能日志 页面生成时长 : " + this.timer + "ms");
     }
 }

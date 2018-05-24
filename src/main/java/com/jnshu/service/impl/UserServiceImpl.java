@@ -7,11 +7,10 @@ import com.jnshu.model.*;
 import com.jnshu.service.UserService;
 import com.jnshu.tools.MemcacheUtils;
 
+import com.jnshu.tools.RedisUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +24,8 @@ public class UserServiceImpl implements UserService {
     AuthDao authDao;
     @Autowired
     UserAuthDao userAuthDao;
+    @Autowired
+    MemcacheUtils memcacheUtils;
 
     private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserList userList = new UserList();
-        Object object = MemcacheUtils.get("userAll");
+        Object object = memcacheUtils.get("userAll");
         // 当缓存不为空时 直接返回缓存
         if (object != null) {
             logger.debug("userALl 缓存输出 ");
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
         userList.setUserList(userCustomList);
         // 当缓存为空时 添加 memcached 缓存
         logger.debug("userALl 设置缓存");
-        MemcacheUtils.set("userAll", userList);
+        memcacheUtils.set("userAll", userList);
         return userCustomList;
     }
 
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
     public UserCustom findUserById(Integer id) throws Exception {
         // 查找缓存
         logger.debug("查询缓存中");
-        Object object = MemcacheUtils.get("user" + id);
+        Object object = memcacheUtils.get("user" + id);
         logger.debug("缓存查询完成");
         // 当存在缓存时直接返回缓存数据
         if (object != null) {
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService {
         }
         UserCustom userCustom = userDao.findUserById(id);
         // 当缓存为空时 添加 memcached 缓存
-        MemcacheUtils.set("user" + id, userCustom);
+        memcacheUtils.set("user" + id, userCustom);
         return userCustom;
     }
 
@@ -76,10 +77,10 @@ public class UserServiceImpl implements UserService {
         //插入成功后返回的值存入了user的id中
         userDao.insertUser(user);
         // 写入缓存 这里使用add 当 key(id)存在时, 不写入缓存
-        Boolean flag = MemcacheUtils.add("user" + user.getId(), user);
+        Boolean flag = memcacheUtils.add("user" + user.getId(), user);
         // 操作数据后 删除 查询所有信息 的缓存
         if(flag){
-            MemcacheUtils.delete("userAll");
+            memcacheUtils.delete("userAll");
         }
         //所以返回user的id值
         return user.getId();
@@ -89,11 +90,11 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(UserCustom userCustom, Integer id) throws Exception {
         userCustom.setId(id);
         // 写入缓存 这里使用replace, 当key(id)不存在时, 不写入缓存
-        Boolean flag = MemcacheUtils.replace("user" + id, userCustom);
+        Boolean flag = memcacheUtils.replace("user" + id, userCustom);
         // 操作数据后 删除 查询所有信息 的缓存
         if(flag){
             logger.info("userAll is delete");
-            MemcacheUtils.delete("userAll");
+            memcacheUtils.delete("userAll");
         }
         return userDao.updateUser(userCustom);
     }
@@ -105,7 +106,7 @@ public class UserServiceImpl implements UserService {
         // 操作数据后 删除 查询所有信息 的缓存
         if(flag){
             logger.info("userAll is delete");
-            MemcacheUtils.delete("userAll");
+            memcacheUtils.delete("userAll");
         }
         return flag;
     }
@@ -133,17 +134,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    RedisUtils redisUtils;
+    /* Redis 接口测试 */
     @Override
     public void addRedis(UserCustom userCustom) throws Exception {
-        ValueOperations<String, UserCustom> valueOperations = redisTemplate.opsForValue();
-        valueOperations.set(String.valueOf(userCustom.getId()), userCustom);
+        redisUtils.set("user"+ userCustom.getId(), userCustom);
     }
 
     @Override
     public UserCustom getRedis(String key) throws Exception {
-        ValueOperations<String, UserCustom> valueOperations = redisTemplate.opsForValue();
-        UserCustom userCustom = valueOperations.get(key);
-        return userCustom;
+        return (UserCustom) redisUtils.get(key);
+    }
+
+    @Override
+    public void delRedis(String key) throws Exception {
+        redisUtils.delKey(key);
     }
 }

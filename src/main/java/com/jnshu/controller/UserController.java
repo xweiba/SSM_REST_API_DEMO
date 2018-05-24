@@ -39,6 +39,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MemcacheUtils memcacheUtils;
 
     //综合页面
     @RequestMapping("/userList.action")
@@ -53,7 +55,7 @@ public class UserController {
         //数据回显
         model.addAttribute("findUserCustom", userQV.getUserCustom());
         model.addAttribute("userList", userList);
-        logger.info(" memcached 到达主页时 : " + (String) MemcacheUtils.get(httpSession.getId()));
+        logger.info(" memcached 到达主页时 : " + (String) memcacheUtils.get(httpSession.getId()));
         return "userList";
     }
 

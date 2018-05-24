@@ -19,6 +19,8 @@ public class LoginSessionController {
     private static Logger logger = LoggerFactory.getLogger(LoginSessionController.class);
     @Autowired
     UserService userService;
+    @Autowired
+    MemcacheUtils memcacheUtils;
 
     // 跳转到登陆页面
     @RequestMapping(value = "/login.action", method = RequestMethod.GET)
@@ -34,8 +36,8 @@ public class LoginSessionController {
             session.setAttribute("username", auth.getUsername());
             logger.info("session.getId():" + session.getId());
             // 存入缓存 用作效验
-            MemcacheUtils.set(session.getId(), auth.getUsername());
-            logger.info("memcached 验证账号时 : " + (String) MemcacheUtils.get(session.getId()));
+            memcacheUtils.set(session.getId(), auth.getUsername());
+            logger.info("memcached 验证账号时 : " + (String) memcacheUtils.get(session.getId()));
         }
         //redirect 重定向到用户信息页面,会导致session内容丢失. 这里先forward保存session
         return "forward:/succed.action";
@@ -44,16 +46,16 @@ public class LoginSessionController {
     //首页跳转到综合页面 这是被 springmvc_rest 拦截处理的
     @RequestMapping("/succed.action")
     public String test(HttpSession session) {
-        logger.info(" memcached 确认跳转时 : " + (String) MemcacheUtils.get(session.getId()));
+        logger.info(" memcached 确认跳转时 : " + (String) memcacheUtils.get(session.getId()));
         return "redirect:/s/userList.action";
     }
 
     //退出登陆
     @RequestMapping("/logout.action")
     public String logout(HttpSession session){
-        logger.info(" memcached 删除时 : " + (String) MemcacheUtils.get(session.getId()));
+        logger.info(" memcached 删除时 : " + (String) memcacheUtils.get(session.getId()));
         // 删除缓存
-        MemcacheUtils.delete(session.getId());
+        memcacheUtils.delete(session.getId());
         //删除session
         session.invalidate();
         return "redirect:/login.action";

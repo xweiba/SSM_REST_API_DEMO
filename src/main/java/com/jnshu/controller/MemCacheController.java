@@ -1,9 +1,7 @@
 package com.jnshu.controller;
 
 import com.jnshu.model.UserCustom;
-import com.jnshu.service.UserService;
 import com.jnshu.tools.MemcacheUtils;
-import com.whalin.MemCached.MemCachedClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/memcache")
 public class MemCacheController {
     @Autowired
-    UserService userService;
+    MemcacheUtils memcacheUtils;
     private static Logger logger = LoggerFactory.getLogger(MemCacheController.class);
 
     /**
@@ -39,7 +37,7 @@ public class MemCacheController {
         if(StringUtils.isEmpty(key)){
             return "key must not be empty or null!";
         }
-        return MemcacheUtils.get("user" + key);
+        return memcacheUtils.get("user" + key);
     }
 
     /**
@@ -56,7 +54,7 @@ public class MemCacheController {
         if(StringUtils.isEmpty(key)){
             return false;
         }
-        return MemcacheUtils.replace("user" + key, userCustom);
+        return memcacheUtils.replace("user" + key, userCustom);
     }
     
     /** 
@@ -74,7 +72,7 @@ public class MemCacheController {
         if(StringUtils.isEmpty(key)){
             return false;
         }
-        return MemcacheUtils.add("user" + key, userCustom);
+        return memcacheUtils.add("user" + key, userCustom);
     }
     
     /** 
@@ -90,7 +88,7 @@ public class MemCacheController {
         if(StringUtils.isEmpty(key)){
             return false;
         }
-        return MemcacheUtils.delete("user" + key);
+        return memcacheUtils.delete("user" + key);
     }
     /**
      * @Description: 清除缓存中的所有键值对
@@ -102,6 +100,6 @@ public class MemCacheController {
     @RequestMapping(value = "/api/all", method = RequestMethod.DELETE)
     @ResponseBody
     public boolean flashAll() throws Exception {
-        return MemcacheUtils.flashAll();
+        return memcacheUtils.flashAll();
     }
 }

@@ -16,14 +16,22 @@ import java.util.List;
 
 public class MemcacheUtils {
 
-    private static MemCachedClient cachedClient;
+    private MemCachedClient cachedClient;
+
+    MemcacheUtils(MemCachedClient cachedClient){
+        this.cachedClient = cachedClient;
+    }
+    // 传入 MemCachedClient 会话
+    public void setMemCachedClient(MemCachedClient memCachedClient) {
+        this.cachedClient = memCachedClient;
+    }
 
     /* 实例化 MemCachedClient, */
-    static {
+   /* static {
         if (cachedClient == null) {
             cachedClient = new MemCachedClient("memCachedPool");
         }
-    }
+    }*/
 
     // 空的构造函数
     private MemcacheUtils() {
@@ -38,7 +46,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean set(String key, Object value) {
+    public boolean set(String key, Object value) {
         return setExp(key, value, null);
     }
 
@@ -49,7 +57,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean set(String key, Object value, Date expire) {
+    public boolean set(String key, Object value, Date expire) {
         return setExp(key, value, expire);
     }
 
@@ -61,7 +69,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    private static boolean setExp(String key, Object value, Date expire) {
+    private boolean setExp(String key, Object value, Date expire) {
         boolean flag = false;
         try {
             flag = cachedClient.set(key, value, expire);
@@ -87,7 +95,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean add(String key, Object value) {
+    public boolean add(String key, Object value) {
         return addExp(key, value, null);
     }
 
@@ -98,7 +106,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean add(String key, Object value, Date date) {
+    public boolean add(String key, Object value, Date date) {
         return addExp(key, value, date);
     }
 
@@ -109,7 +117,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    private static boolean addExp(String key, Object value, Date expire) {
+    private boolean addExp(String key, Object value, Date expire) {
         boolean flag = false;
         try {
             flag = cachedClient.add(key, value, expire);
@@ -132,7 +140,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean replace(String key, Object value) {
+    public boolean replace(String key, Object value) {
         return replaceExp(key, value, null);
     }
 
@@ -143,7 +151,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean replace(String key, Object value, Date expire) {
+    public boolean replace(String key, Object value, Date expire) {
         return replaceExp(key, value, expire);
     }
 
@@ -154,7 +162,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    private static boolean replaceExp(String key, Object value, Date expire) {
+    private boolean replaceExp(String key, Object value, Date expire) {
         boolean flag = false;
         try {
             flag = cachedClient.replace(key, value, expire);
@@ -175,7 +183,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static Object get(String key) {
+    public Object get(String key) {
         Object object = null;
         try {
             object = cachedClient.get(key);
@@ -200,7 +208,7 @@ public class MemcacheUtils {
      * @Date: 2018/5/18
      */
     // @SuppressWarnings("deprecation") 这里不使用废弃的方法
-    public static boolean delete(String key) {
+    public boolean delete(String key) {
         boolean flag = false;
         try {
             flag = cachedClient.delete(key);
@@ -222,7 +230,7 @@ public class MemcacheUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/18
      */
-    public static boolean flashAll() {
+    public boolean flashAll() {
         boolean flag = false;
         try {
             flag = cachedClient.flushAll();
@@ -247,4 +255,6 @@ public class MemcacheUtils {
         pw.flush();
         return sw.toString();
     }
+
+
 }
