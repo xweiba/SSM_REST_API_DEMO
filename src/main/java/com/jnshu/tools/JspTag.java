@@ -39,7 +39,7 @@ public class JspTag extends TagSupport {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            logger.error("时间值为空");
+            logger.error("Time Is NULL!");
         }
         return super.doStartTag();
     }

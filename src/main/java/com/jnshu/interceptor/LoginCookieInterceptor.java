@@ -32,11 +32,6 @@ public class LoginCookieInterceptor implements HandlerInterceptor {
     private static Logger logger = LoggerFactory.getLogger(LoginCookieInterceptor.class);
 
 
-
-
-
-
-
     //执行Handler方法之前执行
     //用于身份认证、身份授权
     //比如身份认证，如果认证通过表示当前用户没有登陆，需要此方法拦截不再向下执行

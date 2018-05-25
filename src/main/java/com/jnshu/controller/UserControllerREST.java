@@ -57,7 +57,7 @@ public class UserControllerREST {
     //综合页面 默认显示所有用户信息, 提供搜索功能
     @RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
     public String list(Model model, UserQV userQV) throws Exception {
-        logger.debug(userQV.toString());
+        // logger.debug(userQV.toString());
         List<UserCustom> userCustomList = userService.findUserMore(userQV);
         //数据回显
         model.addAttribute("findUserCustom", userQV.getUserCustom());
@@ -126,7 +126,7 @@ public class UserControllerREST {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(Model model, @PathVariable Integer id,
                          @Validated(value = ValidationUpdate.class) UserCustom userCustom, BindingResult bindingResult) throws Exception {
-        logger.info("updateSubmit 执行中,userCustom: " + userCustom.toString());
+        // logger.info("updateSubmit 执行中,userCustom: " + userCustom.toString());
         /* 效验输入信息 */
         if (bindingResult.hasErrors()) {
             //输出错误信息
@@ -149,7 +149,6 @@ public class UserControllerREST {
         userService.updateUser(userCustom, id);
         return "redirect:/u/list";
     }
-
 
     /* WEB-INF/jsp/rest/jsonTaglib.jsp */
 

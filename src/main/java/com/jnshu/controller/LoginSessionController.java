@@ -52,7 +52,7 @@ public class LoginSessionController {
     @RequestMapping("/succed.action")
     public String test(HttpSession session) {
         logger.info(" memcached 确认跳转时 : " + (String) memcacheUtils.get(session.getId()));
-        return "redirect:/s/userList.action";
+        return "redirect:/u/userList.action";
     }
 
     //退出登陆

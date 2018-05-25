@@ -2,11 +2,12 @@ package com.jnshu.controller;
 
 import com.jnshu.model.UserCustom;
 import com.jnshu.tools.RedisUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -21,6 +22,8 @@ public class RedisController {
     @Autowired
     RedisUtils redisUtils;
 
+    private static Logger logger = LoggerFactory.getLogger(MemCacheController.class);
+
     // 原生接口性能测试
     @RequestMapping(value = "/gety", method = RequestMethod.GET)
     @ResponseBody
@@ -29,25 +32,61 @@ public class RedisController {
         return jedis.get("user1");
     }
 
-    // Spring-Redis-
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    /**
+     * @Description: 获取key为id的user缓存
+     * @Param: [key]
+     * @return: java.lang.Object
+     * @Author: Mr.Wang
+     * @Date: 2018/5/19
+     */
+    @RequestMapping(value = "/api/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public UserCustom getRedis() throws Exception {
-        return (UserCustom) redisUtils.get("user1");
+    public Object findByKey(@RequestBody @PathVariable("id") String key){
+        if(StringUtils.isEmpty(key)){
+            return "key must not be empty or null!";
+        }
+        return redisUtils.get("user" + key);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+
+    /**
+     * @Description: 增加缓存数据 当键存在时取消存入
+     * @Param: [key, userCustom] 键, 值
+     * @return: java.lang.Boolean
+     * @Author: Mr.Wang
+     * @Date: 2018/5/19
+     */
+    @RequestMapping(value = "/api/{id}", method = RequestMethod.PUT, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public void addRedis() throws Exception {
-        UserCustom userCustom = new UserCustom();
-        userCustom.setId(1);
-        userCustom.setUsername("liuhaun");
-        redisUtils.set("user" + userCustom.getId(), userCustom);
+    public Boolean insert(@PathVariable("id") String key, @RequestBody UserCustom userCustom){
+        userCustom.setId(Integer.valueOf(key));
+        if(StringUtils.isEmpty(key)){
+            return false;
+        }
+        return redisUtils.set("user" + key, userCustom);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    /**
+     * @Description: 删除指定key
+     * @Param: [key]
+     * @return: java.lang.Boolean
+     * @Author: Mr.Wang
+     * @Date: 2018/5/19
+     */
+    @RequestMapping(value = "/api/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public void deleteRedis(String key) throws Exception {
-        redisUtils.expire(key, 0);
+    public Boolean deleteByKey(@PathVariable("id") String key){
+        if(StringUtils.isEmpty(key)){
+            return false;
+        }
+        return redisUtils.expire("user" + key);
+    }
+
+    @RequestMapping(value = "/api/all", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean flashAll() throws Exception {
+        logger.info("redis 缓存已清理");
+        redisUtils.expire("userAll");
+        return redisUtils.expire("user42");
     }
 }

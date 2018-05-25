@@ -36,17 +36,17 @@ public class UserServiceRedisImpl implements UserService {
 
     @Override
     public List<UserCustom> findUserMore(UserQV userQV) throws Exception {
-        logger.info("传入 userQv: " + userQV.toString());
+        // logger.info("传入 userQv: " + userQV.toString());
         // 复杂查询 每次数据都不同 不能做缓存 当查询不为空时 执行
         if (userQV.getUserCustom() != null) {
-            logger.info("复杂查询开始");
+            // logger.info("复杂查询开始");
             return userDao.findUserMore(userQV);
         }
         UserList userList = new UserList();
         Object object = cacheUtils.get("userAll");
         // 当缓存不为空时 直接返回缓存
         if (object != null) {
-            logger.debug("userALl 缓存输出 ");
+            logger.info("userALl 缓存输出 ");
             userList = (UserList) object;
             // 直接返回缓存
             return userList.getUserList();
@@ -82,6 +82,7 @@ public class UserServiceRedisImpl implements UserService {
         // 操作数据后 删除 查询所有信息 的缓存
         if (flag) {
             cacheUtils.expire("userAll", 0);
+            logger.info("缓存刷新");
         }
         //所以返回user的id值
         return userCustom.getId();
@@ -92,11 +93,11 @@ public class UserServiceRedisImpl implements UserService {
         Boolean flagUpdate = userDao.updateUser(userCustom);
         // 操作数据后 删除 查询所有信息 的缓存
         if (flagUpdate) {
-            userCustom.setId(id);
-            logger.debug("更新删除中...");
+            // logger.debug("更新删除中...");
             // 当写入成功时, 让之前的key失效
-            cacheUtils.expire("user");
+            cacheUtils.expire("user" + userCustom.getId());
             cacheUtils.expire("userAll");
+            logger.info("缓存刷新");
         }
         return flagUpdate;
     }
@@ -110,6 +111,7 @@ public class UserServiceRedisImpl implements UserService {
             // 当写入成功时, 让之前的key失效
             cacheUtils.expire("user" + i, 0);
             cacheUtils.expire("userAll", 0);
+            logger.info("缓存刷新");
         }
         return flag;
     }

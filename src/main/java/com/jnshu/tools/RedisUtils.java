@@ -93,12 +93,24 @@ public class RedisUtils {
      * @Author: Mr.Wang
      * @Date: 2018/5/24
      */
-    public void delKey(String... key) {
+    public boolean delKey(String... key) {
         if (key.length == 1) {
-            redisTemplate.delete(key[0]);
+            try {
+                redisTemplate.delete(key[0]);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         } else {
             // CollectionUtils.arrayToList(key) 将key字符串集合转换为list对象集合
-            redisTemplate.delete(CollectionUtils.arrayToList(key));
+            try {
+                redisTemplate.delete(CollectionUtils.arrayToList(key));
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 

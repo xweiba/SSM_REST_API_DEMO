@@ -31,10 +31,10 @@ public class UserServiceMemcacheImpl implements UserService {
 
     @Override
     public List<UserCustom> findUserMore(UserQV userQV) throws Exception {
-        logger.info("传入 userQv: " + userQV.toString());
+        // logger.info("传入 userQv: " + userQV.toString());
         // 复杂查询 每次数据都不同 不能做缓存 当查询不为空时 执行
         if(userQV.getUserCustom() != null){
-            logger.info("复杂查询开始");
+            // logger.info("复杂查询开始");
             return userDao.findUserMore(userQV);
         }
 
@@ -42,8 +42,8 @@ public class UserServiceMemcacheImpl implements UserService {
         Object object = memcacheUtils.get("userAll");
         // 当缓存不为空时 直接返回缓存
         if (object != null) {
-            logger.debug("userALl 缓存输出 ");
             userList = (UserList) object;
+            logger.info("userALl 缓存输出 ");
             // 直接返回缓存
             return userList.getUserList();
         }
@@ -51,7 +51,7 @@ public class UserServiceMemcacheImpl implements UserService {
         // UserList userList = new UserList();
         userList.setUserList(userCustomList);
         // 当缓存为空时 添加 memcached 缓存
-        logger.debug("userALl 设置缓存");
+        logger.info("userALl 设置缓存");
         memcacheUtils.set("userAll", userList);
         return userCustomList;
     }
@@ -59,15 +59,14 @@ public class UserServiceMemcacheImpl implements UserService {
     @Override
     public UserCustom findUserById(Integer id) throws Exception {
         // 查找缓存
-        logger.debug("查询缓存中");
         Object object = memcacheUtils.get("user" + id);
-        logger.debug("缓存查询完成");
         // 当存在缓存时直接返回缓存数据
         if (object != null) {
+            logger.info("userId 缓存输出");
             return (UserCustom) object;
         }
         UserCustom userCustom = userDao.findUserById(id);
-        // 当缓存为空时 添加 memcached 缓存
+        // 当缓存为空时 添加 memcached 缓存, 为避免脏读问题,缓存只在读取时添加
         memcacheUtils.set("user" + id, userCustom);
         return userCustom;
     }
@@ -75,26 +74,27 @@ public class UserServiceMemcacheImpl implements UserService {
     @Override
     public int insertUser(UserCustom userCustom) throws Exception {
         //插入成功后返回的值存入了user的id中
-        userDao.insertUser(userCustom);
-        // 写入缓存 这里使用add 当 key(id)存在时, 不写入缓存
-        Boolean flag = memcacheUtils.add("user" + userCustom.getId(), userCustom);
-        // 操作数据后 删除 查询所有信息 的缓存
-        if(flag){
+        if(userDao.insertUser(userCustom)>0){
+            // 操作数据后 删除 查询所有信息 的缓存
             memcacheUtils.delete("userAll");
+            logger.info("缓存刷新");
         }
-        //所以返回user的id值
+        //返回user的id值
         return userCustom.getId();
     }
 
     @Override
     public boolean updateUser(UserCustom userCustom, Integer id) throws Exception {
-        userCustom.setId(id);
-        // 写入缓存 这里使用replace, 当key(id)不存在时, 不写入缓存
-        Boolean flag = memcacheUtils.replace("user" + id, userCustom);
-        // 操作数据后 删除 查询所有信息 的缓存
+        Boolean flag = userDao.updateUser(userCustom);
+
         if(flag){
-            logger.info("userAll is delete");
+            // 更新时只删除原缓存, 不设置缓存, 防止脏读
+            userCustom.setId(id);
+            memcacheUtils.delete("user" + id);
+            // 操作数据删除 查询所有信息 的缓存
+            // logger.info("userAll is delete");
             memcacheUtils.delete("userAll");
+            logger.info("缓存刷新");
         }
         return userDao.updateUser(userCustom);
     }
@@ -103,10 +103,11 @@ public class UserServiceMemcacheImpl implements UserService {
     public boolean deleteUser(Integer i) throws Exception {
         // 删除缓存
         Boolean flag = userDao.deleteUser(i);
-        // 操作数据后 删除 查询所有信息 的缓存
+
         if(flag){
-            logger.info("userAll is delete");
+            // 操作数据后 删除 查询所有信息 的缓存
             memcacheUtils.delete("userAll");
+            logger.info("userAll 缓存刷新");
         }
         return flag;
     }

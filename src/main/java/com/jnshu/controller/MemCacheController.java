@@ -100,6 +100,7 @@ public class MemCacheController {
     @RequestMapping(value = "/api/all", method = RequestMethod.DELETE)
     @ResponseBody
     public boolean flashAll() throws Exception {
+        logger.info("mem缓存已清除");
         return memcacheUtils.flashAll();
     }
 }

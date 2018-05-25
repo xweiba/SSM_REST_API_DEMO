@@ -36,6 +36,10 @@ public class LoginController {
     MemcacheUtils memcacheUtils;
 
     private static Logger logger = LoggerFactory.getLogger(LoginCookieController.class);
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String indexPage(){
+        return "redirect:/login";
+    }
 
     // 跳转到登陆页面
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -44,7 +48,7 @@ public class LoginController {
     }
 
     // 账号密码验证
-    @RequestMapping(value = "/login/validate", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String valiDate(UserAuth userAuth,
                            HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model) throws Exception {
         logger.info("加密前登陆的信息: " + userAuth.toString());
