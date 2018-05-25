@@ -128,7 +128,7 @@
     <root>
         <!-- ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF -->
         <!-- all为输出所有级别日志-->
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOGDEBUG"/>
         <appender-ref ref="LOGINFO"/>
