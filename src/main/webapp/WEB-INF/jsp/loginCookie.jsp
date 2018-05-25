@@ -43,7 +43,7 @@
             <img src="${pageContext.request.contextPath }/static/images/user.png"
                  alt=""/>
         </div>
-        <form action="${pageContext.request.contextPath }/login/validate" method="post">
+        <form action="${pageContext.request.contextPath }/login" method="post">
             <input type="text" name="au_username" value="<%=URLDecoder.decode(username) %>"
             <%-- 光标选中 如果是默认字符串 不显示内容 --%>
                    onfocus="if (this.value == '<%=URLDecoder.decode(username) %>') {this.value = '';}"
